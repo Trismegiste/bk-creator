@@ -6,29 +6,23 @@
                         onChangeGroup
                     }">
                 <option value="0">Filtrez un groupe...</option>
-                <option each="{ race in filter }" value="{race}">{race}</option>
-            </select>
-            <select name="subgroup" class="pure-input-1 capitalize" value="{ selectedSubgroup }" onchange="{
-                        onChangeSubgroup
-                    }">
-                <option value="0">Filtrez un sous-groupe...</option>
-                <option each="{ titre in subGroupList }" value="{titre}">{titre}</option>
+                <option each="{ group in category }" value="{group}">{group}</option>
             </select>
             <select name="atout" class="pure-input-1" onchange="{
                         onAppendAtout
                     }">
                 <option value="0">Cliquez pour ajouter...</option>
-                <option each="{ filteredAtoutList }" value="{titre}">{titre}</option>
+                <option each="{ filteredAtoutList }" value="{Atout}">{Atout}</option>
             </select>
         </div>
-        <virtual each="{ model.current.atout }">
+        <virtual each="{ atout in model.current.atout }">
             <div class="pure-u-1-{ info == '1' ? '2' : '1' }">
-                <label title="Prérequis : {prerequis} &#013;Détail : {descr}">
+                <label title="Prérequis : {atout['Prérequis']} &#013;Détail : {atout['Effets']}">
                     <input type='radio' name="selectedEdge"
                            checked="{checkedAtout == this}" onclick="{
                                        onCheckedEdge
                                    }"/>
-                    {titre}
+                    {atout['Atout']}
                 </label>
             </div>
             <div class="pure-u-1-2" if="{ info == '1' }">
@@ -62,33 +56,19 @@
         this.model = SwCharman.model
         this.checkedAtout = undefined;
         this.selectedGroup = 0
-        this.selectedSubgroup = 0
-        this.subGroupList = []
+        this.category = SwCharman.table.getEdgeCategory()
         this.filteredAtoutList = []
         var self = this;
 
         this.onChangeGroup = function () {
             self.selectedGroup = self.groupe.value
-            self.subGroupList = SwCharman.table.getAtoutSubGroupListFor(self.selectedGroup)
-
-            if (self.subGroupList.length === 1) {
-                self.selectedSubgroup = self.subGroupList[0]
-                self.filteredAtoutList = SwCharman.table.getAtoutListFor(self.selectedGroup, self.selectedSubgroup)
-            } else {
-                self.selectedSubgroup = 0
-                self.filteredAtoutList = []
-            }
-        }
-
-        this.onChangeSubgroup = function () {
-            self.selectedSubgroup = self.subgroup.value
-            self.filteredAtoutList = SwCharman.table.getAtoutListFor(self.selectedGroup, self.selectedSubgroup)
+            self.filteredAtoutList = SwCharman.table.getAtoutListFor(self.selectedGroup)
         }
 
         this.onAppendAtout = function (e) {
             for (var idx in self.filteredAtoutList) {
                 var atout = self.filteredAtoutList[idx]
-                if (atout.titre === e.target.value) {
+                if (atout.Atout === e.target.value) {
                     var temp = self.model.clone(atout)
                     self.model.current.atout.push(temp)
                     e.target.value = 0;

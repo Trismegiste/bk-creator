@@ -30,8 +30,6 @@
     <script>
         this.model = SwCharman.model
         this.handicapList = SwCharman.table.get('Handicaps')
-                console.log(this.handicapList)
-
         var self = this;
 
         this.onAppendHandicap = function (e) {

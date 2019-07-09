@@ -180,35 +180,24 @@ SwTable.prototype.get = function (key) {
     return this.data[key]
 }
 
-SwTable.prototype.getAtoutGroupList = function () {
-    var result = []
-    for (var idx in this.data['atout']) {
-        var atout = this.data['atout'][idx]
-        if ((atout.enabled == 1) && (-1 === result.indexOf(atout.group))) {
-            result.push(atout.group)
+SwTable.prototype.getEdgeCategory = function () {
+    var liste = this.data['Atouts']
+    var cat = []
+    for (var k in liste) {
+        var t = liste[k]['Type']
+        if (-1 === cat.indexOf(t)) {
+            cat.push(t)
         }
     }
 
-    return result
+    return cat
 }
 
-SwTable.prototype.getAtoutSubGroupListFor = function (group) {
+SwTable.prototype.getAtoutListFor = function (group) {
     var result = []
-    for (var idx in this.data['atout']) {
-        var atout = this.data['atout'][idx]
-        if ((atout.enabled == 1) && (atout.group === group) && (-1 === result.indexOf(atout.subgroup))) {
-            result.push(atout.subgroup)
-        }
-    }
-
-    return result
-}
-
-SwTable.prototype.getAtoutListFor = function (group, subgroup) {
-    var result = []
-    for (var idx in this.data['atout']) {
-        var atout = this.data['atout'][idx]
-        if ((atout.enabled == 1) && (atout.group === group) && (atout.subgroup === subgroup)) {
+    for (var idx in this.data['Atouts']) {
+        var atout = this.data['Atouts'][idx]
+        if (atout.Type === group) {
             result.push(atout)
         }
     }
