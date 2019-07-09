@@ -33,7 +33,7 @@ SwTable.prototype.load = function () {
                         constraint.push({
                             type: "attribute",
                             attr: checkAttr[1],
-                            dice: checkAttr[2]
+                            dice: parseInt(checkAttr[2])
                         })
                         return
                     }
@@ -44,7 +44,7 @@ SwTable.prototype.load = function () {
                         constraint.push({
                             type: "skill",
                             skill: [checkSkill[1]],
-                            dice: checkSkill[2]
+                            dice: parseInt(checkSkill[2])
                         })
                         return
                     }
@@ -55,7 +55,7 @@ SwTable.prototype.load = function () {
                         constraint.push({
                             type: "skill",
                             skill: [checkDoubleSkill[1], checkDoubleSkill[2]],
-                            dice: checkDoubleSkill[3]
+                            dice: parseInt(checkDoubleSkill[3])
                         })
                         return
                     }
@@ -89,14 +89,14 @@ SwTable.prototype.load = function () {
                     // check unique cost
                     var check = cost.match("^(1?[0-9])$")
                     if (null !== check) {
-                        return [check[1]]
+                        return [parseInt(check[1])]
 
                     }
                     // check ranged cost
                     check = cost.match("^([0-9]) à (1?[0-9])$")
                     if (null !== check) {
                         var constraint = []
-                        for (var k = check[1]; k <= check[2]; k++) {
+                        for (var k = parseInt(check[1]); k <= check[2]; k++) {
                             constraint.push(k)
                         }
                         return constraint
