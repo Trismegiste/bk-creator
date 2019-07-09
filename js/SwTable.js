@@ -147,7 +147,7 @@ SwTable.prototype.load = function () {
                 if (firstRow) {
                     colName.push(cell.textContent)
                 } else {
-                    rowObj[colName[cellIdx]] = cell.textContent
+                    rowObj[colName[cellIdx]] = cell.textContent.trim()
                 }
 
                 lastRow = row

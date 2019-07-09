@@ -90,7 +90,7 @@
         }
         // Here we go
         SwCharman.table.load().then(function () {
-            SwCharman.builder = new CharacterBuilder(SwCharman.table.get('Atouts'))
+            SwCharman.builder = new CharacterBuilder(SwCharman.table.get('Attributs'), SwCharman.table.get('Pouvoirs'))
             riot.mixin('toasty', Toasty)
             riot.route.start(true);
             riot.mount('*');
