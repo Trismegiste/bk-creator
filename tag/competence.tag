@@ -35,7 +35,6 @@
     <script>
         this.model = SwCharman.model
         this.competenceList = SwCharman.table.get('Compétences')
-        console.log(this.competenceList)
         var self = this;
 
 
@@ -55,12 +54,12 @@
             var tab = self.model.current.competence;
             // delete if empty value
             if (e.target.value == 0) {
-                var idx = tab.indexOf(e.item);
+                var idx = tab.indexOf(e.item.comp);
                 if (idx !== -1) {
                     tab.splice(idx, 1)
                 }
             } else {
-                var idx = tab.indexOf(e.item)
+                var idx = tab.indexOf(e.item.comp)
                 if (-1 !== idx) {
                     tab[idx].value = e.target.value
                 }
@@ -69,7 +68,7 @@
 
         this.onUpdateTitle = function (e) {
             var tab = self.model.current.competence
-            var idx = tab.indexOf(e.item)
+            var idx = tab.indexOf(e.item.comp)
             if (-1 !== idx) {
                 tab[idx]['Compétences'] = e.target.value
             }

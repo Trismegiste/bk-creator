@@ -78,16 +78,7 @@ SwTable.prototype.load = function () {
         function enrichHindrance(handicapList) {
             for (var k in handicapList) {
                 var handicap = handicapList[k]
-                handicap.getCost = function () {
-                    switch (this['Type']) {
-                        case 'Majeur':
-                            return ['Maj']
-                        case 'Mineur':
-                            return ['Min']
-                        case 'Min/Maj':
-                            return ['Min', 'Maj']
-                    }
-                }
+                // nothing for the time being
             }
         }
 
