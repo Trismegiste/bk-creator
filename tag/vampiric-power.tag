@@ -1,19 +1,19 @@
-<handicap>
+<vampiric-power>
     <form class="pure-form pure-g" onchange="{
                 onChange
             }">
-        <legend class="pure-u-1">Handicaps</legend>
+        <legend class="pure-u-1">Pouvoirs vampiriques</legend>
         <div class="pure-u-1">
-            <select name="handicap" class="pure-input-1" onchange="{
-                        onAppendHandicap
+            <select name="pouvoir" class="pure-input-1" onchange="{
+                        onAppendPouvoir
                     }">
                 <option value="0">Cliquez pour ajouter...</option>
-                <option each="{ handicapList }" value="{Handicap}">{Handicap}</option>
+                <option each="{ power in pouvoirList }" value="{power['Pouvoir vampirique']}">{power['Pouvoir vampirique']}</option>
             </select>
         </div>
-        <virtual each="{ model.current.handicap }">
+        <virtual each="{ power in model.current.vampiricPower }">
             <div class="pure-u-3-4">
-                <label>{Handicap}</label>
+                <label>{power['Pouvoir vampirique']}</label>
             </div>
             <div class="pure-u-1-4">
                 <select name="niveauValue" class="pure-input-1" value="{ value }"
@@ -21,48 +21,43 @@
                                     parent.onUpdateValue
                                 }">
                     <option></option>
-                    <option value="Mineur" if="{ Type != 'Majeur' }">Mineur</option>
-                    <option value="Majeur" if="{ Type != 'Mineur' }">Majeur</option>
+                    <option each="{ cost in power.costConstraint }" value="{cost}">{cost}</option>
                 </select>
             </div>
         </virtual>
     </form>
     <script>
         this.model = SwCharman.model
-        this.handicapList = SwCharman.table.get('Handicaps')
+        this.pouvoirList = SwCharman.table.get('Pouvoirs')
         var self = this;
 
-        this.onAppendHandicap = function (e) {
-            for (var k = 0; k < self.handicapList.length; k++) {
-                if (self.handicapList[k].Handicap === e.target.value) {
-                    var found = self.handicapList[k]
+        this.onAppendPouvoir = function (e) {
+            for (var k = 0; k < self.pouvoirList.length; k++) {
+                if (self.pouvoirList[k]['Pouvoir vampirique'] === e.target.value) {
+                    var found = self.pouvoirList[k]
                     var temp = self.model.clone(found)
-                    temp.value = (temp.Type == 'Majeur') ? 'Majeur' : 'Mineur';
-                    self.model.current.handicap.push(temp)
+                    temp.value = 6;
+                    self.model.current.vampiricPower.push(temp)
                     e.target.value = 0;
                 }
             }
         }
 
         this.onUpdateValue = function (e) {
-            var tab = self.model.current.handicap
+            var tab = self.model.current.vampiricPower
             // delete if empty value
             if (e.target.value == 0) {
-                var idx = tab.indexOf(e.item)
+                var idx = tab.indexOf(e.item.power)
                 if (idx !== -1) {
                     tab.splice(idx, 1)
                 }
             } else {
-                var idx = tab.indexOf(e.item)
+                var idx = tab.indexOf(e.item.power)
                 if (-1 !== idx) {
                     tab[idx].value = e.target.value
                 }
             }
         }
 
-        this.onChange = function () {
-            self.model.trigger('update-hindrance')
-        }
-
     </script>
-</handicap>
+</vampiric-power>

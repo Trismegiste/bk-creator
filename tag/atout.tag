@@ -85,7 +85,7 @@
         }
 
         this.onCheckedEdge = function (e) {
-            self.checkedAtout = e.item;
+            self.checkedAtout = e.item.atout;
         }
 
         this.onDelete = function (e) {

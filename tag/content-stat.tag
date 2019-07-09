@@ -56,10 +56,6 @@
                     <option value="-4">Crit.</option>
                 </select>
             </div>
-            <div class="pure-u-1-4"><label>RM</label></div>
-            <div class="pure-u-1-4"><input type="number" value="{model.current.magicToughness}" name="magicToughness" class="pure-input-1"/></div>
-            <div class="pure-u-1-4"><label>BM</label></div>
-            <div class="pure-u-1-4"><input type="number" value="{model.current.magicWounds}" name="magicWounds" class="pure-input-1"/></div>
         </form>
         <div class="pure-g">
             <div class="pure-u-1-1 footnote" if="{model.current.detailedNote}">

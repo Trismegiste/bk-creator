@@ -28,6 +28,7 @@
     <competence class="{ blockStyle }"></competence>
     <!-- atouts -->
     <atout class="{ blockStyle }"></atout>
+    <vampiric-power  class="{ blockStyle }" if="{ model.current.type == 'vampire' }"></vampiric-power>
     <add-info class="{ blockStyle }"></add-info>
     <div class="pure-u-1 button-spacing" if="{ SwCharman.cloudFolder.id }">
         <a class="pure-button button-success" onclick="{

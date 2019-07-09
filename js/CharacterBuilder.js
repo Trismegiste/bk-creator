@@ -7,12 +7,11 @@ var CharacterBuilder = function (data) {
     this.typeList = {
         vampire: {title: 'Vampire', build: function (c) {
                 c.type = 'vampire'
-                c.atout = []
             }
         },
         humain: {title: 'Humain', build: function (c) {
                 c.type = 'humain'
-                c.atout = []
+                c.vampiricPower = []
             }
         }
     }

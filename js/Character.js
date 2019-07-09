@@ -22,6 +22,7 @@ var Character = function () {
     this.atout = []
     this.detailedNote = ''
     this.wildCard = false
+    this.vampiricPower = []
 };
 
 Character.prototype = {
