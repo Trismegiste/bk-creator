@@ -16,7 +16,7 @@
                 <label>{power['Pouvoir vampirique']}</label>
             </div>
             <div class="pure-u-1-4">
-                <select name="niveauValue" class="pure-input-1" value="{ value }"
+                <select name="niveauValue" class="pure-input-1" value="{ power.value }"
                         onchange="{
                                     parent.onUpdateValue
                                 }">
@@ -25,6 +25,9 @@
                 </select>
             </div>
         </virtual>
+        <div class="pure-u-1-2"></div>
+        <div class="pure-u-1-4"><label class="centered">Pts.</label></div>
+        <div class="pure-u-1-4"><label class="centered">{ model.current.getPowerPoint() }</label></div>
     </form>
     <script>
         this.model = SwCharman.model
@@ -36,7 +39,7 @@
                 if (self.pouvoirList[k]['Pouvoir vampirique'] === e.target.value) {
                     var found = self.pouvoirList[k]
                     var temp = self.model.clone(found)
-                    temp.value = 6;
+                    temp.value = temp.costConstraint[0]
                     self.model.current.vampiricPower.push(temp)
                     e.target.value = 0;
                 }

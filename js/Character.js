@@ -79,6 +79,17 @@ Character.prototype = {
         }
 
         return tab
+    },
+    getPowerPoint: function () {
+        var sum = 0
+        var tab = this.vampiricPower
+        for (var h in tab) {
+            sum += parseInt(tab[h].value)
+        }
+
+        return sum
     }
+
+
 };
 
