@@ -6,7 +6,7 @@
         <virtual each="{ attr in attributList }">
             <div class="pure-u-1-4"><label>{attr}</label></div>
             <div class="pure-u-1-4">
-                <select name="{attr}" class="pure-input-1" data-is="dice-option" value="{ model.current.attribute[attr] }"></select>
+                <select name="{attr}" class="pure-input-1" data-is="dice-option" nozero="true" value="{ model.current.attribute[attr] }"></select>
             </div>
         </virtual>
         <div class="pure-u-1-4"><label>Pts.</label></div>
@@ -14,21 +14,23 @@
     </form>
     <script>
         this.model = SwCharman.model
-        this.attributList = [
-            'AGI', 'FOR', 'VIG', 'INT', 'ÂME'
-        ]
+        this.attributList = []
+        var attr = SwCharman.table.get('Attributs')
+        for (var k in attr) {
+            this.attributList.push(attr[k]['Abbrev'])
+        }
         var self = this;
 
-        onChange() {
+        this.onChange = function () {
             var obj = self.model.current.attribute;
-            self.attributList.forEach(function(key) {
+            self.attributList.forEach(function (key) {
                 obj[key] = self[key].value
             })
         }
 
-        this.model.on('init-attributs', function(val) {
+        this.model.on('init-attributs', function (val) {
             var obj = self.model.current.attribute;
-            self.attributList.forEach(function(key) {
+            self.attributList.forEach(function (key) {
                 obj[key] = val
             })
             self.update()

@@ -1,7 +1,7 @@
 <dice-option>
     <option each="{dice in diceList}" value="{dice.val}" if="{dice.val<=max}">{dice.label}</option>
     <script>
-        this.max = this.opts.max ? this.opts.max : 14
+        this.max = this.opts.max ? this.opts.max : 12
 
         this.diceList = [
             {val: 0, label: ''},
@@ -19,5 +19,9 @@
             {val: 19, label: 'L+7'},
             {val: 20, label: 'L+8'}
         ]
+
+        if (this.opts.nozero) {
+            this.diceList.shift()
+        }
     </script>
 </dice-option>
