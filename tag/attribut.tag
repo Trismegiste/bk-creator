@@ -24,7 +24,7 @@
         this.onChange = function () {
             var obj = self.model.current.attribute;
             self.attributList.forEach(function (key) {
-                obj[key] = self[key].value
+                obj[key] = parseInt(self[key].value)
             })
         }
 

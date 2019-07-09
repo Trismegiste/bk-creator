@@ -52,7 +52,9 @@ Character.prototype = {
     getCompetencePoint: function () {
         var sum = 0
         for (var k = 0; k < this.competence.length; k++) {
-            sum += (this.competence[k].value - 2) / 2
+            var skill = this.competence[k]
+            var attrRef = this.attribute[skill['Dépend']]
+            sum += (skill.value - 2) / 2 + ((skill.value > attrRef) ? (skill.value - attrRef) / 2 : 0)
         }
 
         return sum;
