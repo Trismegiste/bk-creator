@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Nephilim Savage Worlds Xport</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="./css/pure-min.css"/>
+        <link rel="stylesheet" href="./css/grids-responsive-min.css"/>
+        <link rel="stylesheet" href="./css/main.css"/>
+        <link rel="stylesheet" href="./css/xport.css"/>
+        <link rel="stylesheet" href="./css/fontello.css"/>
+        <link rel="stylesheet" href="./css/animation.css"/>
+        <link rel="apple-touch-icon-precomposed" href="app.jpg">
+        <link rel="icon" href="app.jpg">
+    </head>
+    <body>
+        <div class="content">
+            <div id="waiting" class="pure-g">
+                <div class="pure-u-1">
+                    <i class="icon-spinner animate-spin"></i>
+                </div>
+            </div>
+            <rg-toasts></rg-toasts>
+            <spa-xport id="mainapp" class="hidden"></spa-xport>
+        </div>
+
+    <my-footer></my-footer>
+
+    <script src="./js/fetch.js"></script>
+    <script src="./js/riot+compiler.min.js"></script>
+
+    <script src="./tag/spa-xport.tag" type="riot/tag"></script>
+    <script src="./tag/xport-atout.tag" type="riot/tag"></script>
+    <script src="./tag/xport-handicap.tag" type="riot/tag"></script>
+
+    <script src="./js/SwTable.js"></script>
+    <script>
+        // container for this SPA
+        var Xport = {
+            table: new SwTable('./data/')
+        }
+        // Here we go
+        Xport.table.load().then(function () {
+            riot.route.start(true);
+            riot.mount('*');
+            riot.route('atout')
+        })
+    </script>
+</body>
+</html>

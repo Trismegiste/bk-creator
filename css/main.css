@@ -1,0 +1,102 @@
+footer.terminal {
+    margin: 2em;
+    font-size: 60%;
+    text-align: center;
+}
+
+.button-spacing {
+    margin-top: 1em;
+    text-align: center;
+}
+
+form label.centered {
+    text-align: center;
+}
+
+/* source http://www.colourlovers.com/palette/1231651/Fantasia_Hippo */
+.button-success {
+    background: #20FC90; /* this is a green */
+}
+
+.button-error {
+    background: #FC70C2; /* this is a red */
+}
+
+.button-warning {
+    background: #FFD637; /* this is an orange */
+}
+
+.button-primary {
+    background: #76D8FF;
+}
+
+.form-label-aligned label {
+    text-align: right;
+    margin-right: 0.3em;
+}
+
+.pure-form input, .pure-form select {
+    margin-bottom: 0.3em;
+}
+
+.capitalize {
+    text-transform: capitalize
+}
+
+.pure-form label {
+    display: block;
+    margin-bottom: 0.3em;
+}
+
+.top-menu {
+    margin-bottom: 0.6em;
+    font-size: 140%;
+}
+
+h2 {
+    font-weight: 100;
+}
+
+.webcomponent form {
+    margin: 0 0.6em 1em;
+}
+
+.small-footnotes {
+    margin-top: 0.6em;
+    font-size: 80%;
+    text-align: center;
+}
+
+/* for spinner */
+#waiting {
+    text-align: center;
+    font-size: 1000%;
+    color: lightgray;
+}
+
+.footnote {
+    padding-left: 2em;
+    padding-right: 2em;
+    font-size: 70%
+}
+
+.wildcard {
+    text-align: center;
+    font-size: 190%;
+    color: darkred
+}
+
+.direct-link {
+    padding-top: 0.3em;
+    text-align: center;
+    font-size: 130%;
+}
+
+.direct-link a {
+    text-decoration: none;
+    color: graytext;
+}
+
+content-database div.character {
+    padding-bottom: 0.6em;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bloody KISS Character Creator</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="./css/pure-min.css"/>
+        <link rel="stylesheet" href="./css/grids-responsive-min.css"/>
+        <link rel="stylesheet" href="./css/main.css"/>
+        <link rel="stylesheet" href="./css/toasts.css"/>
+        <link rel="stylesheet" href="./css/fontello.css"/>
+        <link rel="stylesheet" href="./css/animation.css"/>
+        <link rel="apple-touch-icon-precomposed" href="app.jpg">
+        <link rel="icon" href="app.jpg">
+    </head>
+    <body>
+        <div class="content">
+            <div id="waiting" class="pure-g">
+                <div class="pure-u-1">
+                    <i class="icon-spinner animate-spin"></i>
+                </div>
+            </div>
+            <rg-toasts></rg-toasts>
+            <spa-tabs id="mainapp" class="hidden"></spa-tabs>
+        </div>
+
+    <my-footer></my-footer>
+
+    <script src="./js/fetch.js"></script>
+    <script src="./js/Obj.assign.js"></script>
+    <script src="./js/riot+compiler.min.js"></script>
+    <script src="./js/rg-toasts.js"></script>
+    <script src="./js/toasty-mixin.js"></script>
+
+    <script src="./tag/spa-tabs.tag" type="riot/tag"></script>
+    <script src="./tag/content-list.tag" type="riot/tag"></script>
+    <script src="./tag/atout.tag" type="riot/tag"></script>
+    <script src="./tag/content-stat.tag" type="riot/tag"></script>
+    <script src="./tag/content-database.tag" type="riot/tag"></script>
+    <script src="./tag/dice-option.tag" type="riot/tag"></script>
+    <script src="./tag/attribut.tag" type="riot/tag"></script>
+    <script src="./tag/handicap.tag" type="riot/tag"></script>
+    <script src="./tag/competence.tag" type="riot/tag"></script>
+    <script src="./tag/token-option.tag" type="riot/tag"></script>
+    <script src="./tag/content-detail.tag" type="riot/tag"></script>
+    <script src="./tag/my-footer.tag" type="riot/tag"></script>
+    <script src="./tag/add-info.tag" type="riot/tag"></script>
+    <script src="./tag/google-drive-doc.tag" type="riot/tag"></script>
+    <script src="./tag/pdf-bestiaire.tag" type="riot/tag"></script>
+
+    <script src="./js/render/RenderingFactory.js"></script>
+    <script src="./js/render/AbstractRendering.js"></script>
+    <script src="./js/render/NephilimRendering.js"></script>
+    <script src="./js/render/HumainRendering.js"></script>
+    <script src="./js/render/EtreKaRendering.js"></script>
+    <script src="./js/render/EffetdragonRendering.js"></script>
+    <script src="./js/render/KabbaleRendering.js"></script>
+    <script src="./js/render/ConstructRendering.js"></script>
+    <script src="./js/render/Asset.js"></script>
+    <script src="./js/pdf/pdfmake.min.js"></script>
+    <script src="./js/pdf/vfs_fonts.js"></script>
+
+    <script src="./js/diceRoller.js"></script>
+    <script src="./js/Character.js"></script>
+    <script src="./js/CharacterBuilder.js"></script>
+    <script src="./js/Repository.js"></script>
+    <script src="./js/Model.js"></script>
+    <script src="./js/SwTable.js"></script>
+    <script src="./js/dexie.min.js"></script>
+    <script src="./js/GoogleDrive.js"></script>
+    <script src="./js/icon-google-drive.js"></script>
+
+    <script>
+        var cloudClient = new GoogleDrive({
+            clientId: '374977961173-5novsbmqqspuvqr0s54jjocimluvos64.apps.googleusercontent.com',
+            appId: '374977961173',
+            apiKey: 'AIzaSyDgilBkA3oUaSyczUAHLmK41IqehCbzpqI'
+        })
+        cloudClient.setIcon(googleDriveThumbnail)
+
+        // container for this SPA
+        var SwCharman = {
+            repository: new Repository(),
+            model: new Model(),
+            table: new SwTable('./data/bloodykiss.xml'),
+            cloudFolder: {},
+            cloudFile: {name: 'Sans-Titre'},
+            assetManager: new Asset()
+        }
+        // Here we go
+        SwCharman.table.load().then(function () {
+            SwCharman.builder = new CharacterBuilder(SwCharman.table.get('Atouts'))
+            riot.mixin('toasty', Toasty)
+            riot.route.start(true);
+            riot.mount('*');
+            riot.route('list')
+        })
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+</body>
+</html>

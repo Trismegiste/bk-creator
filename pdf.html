@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Nephilim Savage Worlds edition Character Manager</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div id="log"></div>
+
+        <script src="./js/riot+compiler.min.js"></script>
+
+        <script src="./js/Character.js"></script>
+        <script src="./js/Repository.js"></script>
+        <script src="./js/Model.js"></script>
+        <script src="./js/render/RenderingFactory.js"></script>
+        <script src="./js/render/AbstractRendering.js"></script>
+        <script src="./js/render/NephilimRendering.js"></script>
+        <script src="./js/render/HumainRendering.js"></script>
+        <script src="./js/render/EtreKaRendering.js"></script>
+        <script src="./js/render/EffetdragonRendering.js"></script>
+        <script src="./js/render/KabbaleRendering.js"></script>
+        <script src="./js/render/ConstructRendering.js"></script>
+        <script src="./js/render/Asset.js"></script>
+
+        <script src="./js/dexie.min.js"></script>
+        <script src="./js/pdf/pdfmake.min.js"></script>
+        <script src="./js/pdf/vfs_fonts.js"></script>
+        <script>
+            // container for this SPA
+            var SwCharman = {
+                repository: new Repository(),
+                model: new Model(),
+                assetManager: new Asset()
+            }
+            // init assets
+            for (var idx in SwCharman.model.kaList) {
+                var ka = SwCharman.model.kaList[idx]
+                SwCharman.assetManager.append(ka, './img/' + ka + '.png')
+            }
+            for (var k = 0; k < 2; k++) {
+                SwCharman.assetManager.append('puce-' + k, './img/puce-' + k + '.png')
+            }
+
+            // Here we go
+            riot.route.start(true);
+            var q = riot.route.query()
+
+            SwCharman.assetManager.load().then(function () {
+
+                SwCharman.repository.findByPk(decodeURIComponent(q.key)).then(function (character) {
+                    var factory = new RenderingFactory();
+                    var docDefinition = factory.create(character);
+                    var filename = character.type + '-' + character.name + '.pdf'
+                    pdfMake.createPdf(docDefinition.getDocument()).download(filename);
+                    //pdfMake.createPdf(docDefinition.getDocument()).open()
+                    setTimeout("window.close()", 5000)
+                }).catch(function (e) {
+                    document.getElementById('log').innerHTML = "Error: " + (e.stack || e)
+                    //setTimeout("window.close()", 5000)
+                })
+
+            }).catch(function (msg) {
+                console.error(msg)
+            })
+        </script>
+    </body>
+</html>
