@@ -61,7 +61,7 @@
             } else {
                 var idx = tab.indexOf(e.item.comp)
                 if (-1 !== idx) {
-                    tab[idx].value = e.target.value
+                    tab[idx].value = parseInt(e.target.value)
                 }
             }
         }

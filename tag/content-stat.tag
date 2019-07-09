@@ -108,7 +108,6 @@
             var obj = self.model.current;
             obj.name = self.name.value;
             obj.toughness = self.toughness.value;
-            obj.magicToughness = self.magicToughness.value;
             for (var k = 0; k < 2; k++) {
                 obj.attack[k] = self.attack[k].value;
                 obj.damage[k] = self.damage[k].value;
@@ -116,7 +115,6 @@
             obj.toHit = self.toHit.value;
             obj.toShoot = self.toShoot.value;
             obj.currentWounds = self.wounds.value;
-            obj.magicWounds = self.magicWounds.value;
             obj.shaken = self.shaken.checked;
             obj.spentToken = self.token.value;
             obj.target = self.target.value;
