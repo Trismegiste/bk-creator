@@ -23,6 +23,7 @@ var Character = function () {
     this.detailedNote = ''
     this.wildCard = false
     this.vampiricPower = []
+    this.deltaPC = 0
 };
 
 Character.prototype = {
@@ -66,7 +67,7 @@ Character.prototype = {
         return 5 * (nb + (nb > 16 ? nb - 16 : 0))
     },
     getHindrancePoint: function () {
-        var sum = 0
+        var sum = this.deltaPC
         var tab = this.handicap
         for (var h in tab) {
             sum += (tab[h].value == 'Mineur') ? 1 : 2

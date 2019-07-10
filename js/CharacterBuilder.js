@@ -10,12 +10,13 @@ var CharacterBuilder = function (attributes, superpowers) {
                 c.wildCard = true
                 for (var k in attributes) {
                     c.attribute[attributes[k]['Abbrev']] = 4
-                    c.vampiricPower = [
-                        self.findPowerByName('Nyctalope'),
-                        self.findPowerByName('Crocs'),
-                        self.findPowerByName('Régénération')
-                    ]
                 }
+                c.vampiricPower = [
+                    self.findPowerByName('Nyctalope'),
+                    self.findPowerByName('Crocs'),
+                    self.findPowerByName('Régénération')
+                ]
+                c.deltaPC = 0
             }
         },
         humain: {title: 'Humain', build: function (c) {
@@ -25,6 +26,7 @@ var CharacterBuilder = function (attributes, superpowers) {
                     c.attribute[attributes[k]['Abbrev']] = 6
                 }
                 c.vampiricPower = []
+                c.deltaPC = 2
             }
         }
     }

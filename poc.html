@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>yolo</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+
+        <script>
+
+            var oReq = new XMLHttpRequest()
+            oReq.addEventListener("load", function () {
+                var doc = oReq.responseXML
+                var handi = doc.getElementById('bk-Handicaps')
+
+                console.log(handi.children[0].textContent)
+                handi.children[0].textContent = 'Yolo'
+                new XMLSerializer()
+            })
+
+            oReq.open("GET", "./data/Betty.svg")
+            oReq.send()
+
+
+        </script>
+    </body>
+</html>
