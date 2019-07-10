@@ -3,119 +3,153 @@
  */
 var SwTable = function (filename) {
     this.filename = filename
-    this.data = {'competence': [{title: 'boz'}]}
+    this.data = {}
     this.categoryLabel = {'Pou': 'Pouvoir', 'Cbt': 'Combat', 'Cmd': 'Commandement', 'Soc': 'Social', 'Leg': 'Légendaire', 'Pro': 'Professionnel', 'Bak': 'Background'}
+}
+
+SwTable.prototype.enrichEdge = function () {
+    var atoutListe = this.data['Atouts']
+
+    for (var k in atoutListe) {
+        var atout = atoutListe[k]
+
+        var constraint = []
+        atout['Prérequis'].split(', ').forEach(function (val) {
+            // check for rank
+            var check = val.match("^(N|A|V|H|L)$")
+            if (check !== null) {
+                constraint.push({
+                    type: "rank",
+                    rank: check[1]
+                })
+                return
+            }
+
+            // check for attribute
+            var checkAttr = val.match("^(Âme|Agi|Vig|For|Int) d(4|6|8|10|12)$")
+            if (null !== checkAttr) {
+                constraint.push({
+                    type: "attribute",
+                    attr: checkAttr[1],
+                    dice: parseInt(checkAttr[2])
+                })
+                return
+            }
+
+            // check for one skill
+            var checkSkill = val.match("^([a-zA-Zé]+) d(4|6|8|10|12)$")
+            if (null !== checkSkill) {
+                constraint.push({
+                    type: "skill",
+                    skill: [checkSkill[1]],
+                    dice: parseInt(checkSkill[2])
+                })
+                return
+            }
+
+            // check for one skill or one another skill
+            var checkDoubleSkill = val.match("^([a-zA-Z]+) ou ([a-zA-Z]+) d(4|6|8|10|12)$")
+            if (null !== checkDoubleSkill) {
+                constraint.push({
+                    type: "skill",
+                    skill: [checkDoubleSkill[1], checkDoubleSkill[2]],
+                    dice: parseInt(checkDoubleSkill[3])
+                })
+                return
+            }
+
+            // perhaps it's an edge
+            for (var idx in atoutListe) {
+                if (atoutListe[idx].Atout === val) {
+                    constraint.push({
+                        type: "edge",
+                        edge: val
+                    })
+                }
+            }
+        })
+        // inserting constraints in edge
+        atout.constraint = constraint
+
+        // inserting cost
+        atout.advanceCost = 2
+        // human label
+        atout['Type'] = this.categoryLabel[atout['Type']]
+    }
+}
+
+SwTable.prototype.enrichPower = function () {
+    var powerList = this.data['Pouvoirs']
+
+    for (var k in powerList) {
+        var power = powerList[k]
+        power.costConstraint = function (cost) {
+            // check unique cost
+            var check = cost.match("^(1?[0-9])$")
+            if (null !== check) {
+                return [parseInt(check[1])]
+
+            }
+            // check ranged cost
+            check = cost.match("^([0-9]) à (1?[0-9])$")
+            if (null !== check) {
+                var constraint = []
+                for (var k = parseInt(check[1]); k <= check[2]; k++) {
+                    constraint.push(k)
+                }
+                return constraint
+            }
+            // check stepped cost
+            check = cost.match("^[0-9]/")
+            if (null !== check) {
+                return cost.split('/')
+            }
+
+        }(power['Coût'])
+    }
+}
+
+SwTable.prototype.addingAdvance = function () {
+    var progress = [
+        {
+            Atout: 'Attribut +1TDD',
+            'Type': 'Progression',
+            'Prérequis': 'N',
+            advanceCost: 2,
+            info: true
+        },
+        {
+            Atout: '1 Comp < Attribut +1TDD',
+            'Type': 'Progression',
+            'Prérequis': 'N',
+            advanceCost: 1,
+            info: true
+        },
+        {
+            Atout: '2 Comp < Attribut +1TDD',
+            'Type': 'Progression',
+            'Prérequis': 'N',
+            advanceCost: 2,
+            info: true
+        },
+        {
+            Atout: '1 Comp ≥ Attribut +1TDD',
+            'Type': 'Progression',
+            'Prérequis': 'N',
+            advanceCost: 2,
+            info: true
+        }
+    ]
+
+    for (var k in progress) {
+        this.data['Atouts'].push(progress[k])
+    }
 }
 
 SwTable.prototype.load = function () {
     var self = this
 
     return new Promise(function (fulfill, reject) {
-
-        function enrichEdge(atoutListe) {
-            for (var k in atoutListe) {
-                var atout = atoutListe[k]
-
-                var constraint = []
-                atout['Prérequis'].split(', ').forEach(function (val) {
-                    // check for rank
-                    var check = val.match("^(N|A|V|H|L)$")
-                    if (check !== null) {
-                        constraint.push({
-                            type: "rank",
-                            rank: check[1]
-                        })
-                        return
-                    }
-
-                    // check for attribute
-                    var checkAttr = val.match("^(Âme|Agi|Vig|For|Int) d(4|6|8|10|12)$")
-                    if (null !== checkAttr) {
-                        constraint.push({
-                            type: "attribute",
-                            attr: checkAttr[1],
-                            dice: parseInt(checkAttr[2])
-                        })
-                        return
-                    }
-
-                    // check for one skill
-                    var checkSkill = val.match("^([a-zA-Zé]+) d(4|6|8|10|12)$")
-                    if (null !== checkSkill) {
-                        constraint.push({
-                            type: "skill",
-                            skill: [checkSkill[1]],
-                            dice: parseInt(checkSkill[2])
-                        })
-                        return
-                    }
-
-                    // check for one skill or one another skill
-                    var checkDoubleSkill = val.match("^([a-zA-Z]+) ou ([a-zA-Z]+) d(4|6|8|10|12)$")
-                    if (null !== checkDoubleSkill) {
-                        constraint.push({
-                            type: "skill",
-                            skill: [checkDoubleSkill[1], checkDoubleSkill[2]],
-                            dice: parseInt(checkDoubleSkill[3])
-                        })
-                        return
-                    }
-
-                    // perhaps it's an edge
-                    for (idx in atoutListe) {
-                        if (atoutListe[idx].Atout === val) {
-                            constraint.push({
-                                type: "edge",
-                                edge: val
-                            })
-                        }
-                    }
-                })
-                // inserting constraints in edge
-                atout.constraint = constraint
-
-                // inserting cost
-                atout.advanceCost = 2
-                // human label
-                atout['Type'] = self.categoryLabel[atout['Type']]
-            }
-        }
-
-        function enrichHindrance(handicapList) {
-            for (var k in handicapList) {
-                var handicap = handicapList[k]
-                // nothing for the time being
-            }
-        }
-
-        function enrichPower(powerList) {
-            for (var k in powerList) {
-                var power = powerList[k]
-                power.costConstraint = function (cost) {
-                    // check unique cost
-                    var check = cost.match("^(1?[0-9])$")
-                    if (null !== check) {
-                        return [parseInt(check[1])]
-
-                    }
-                    // check ranged cost
-                    check = cost.match("^([0-9]) à (1?[0-9])$")
-                    if (null !== check) {
-                        var constraint = []
-                        for (var k = parseInt(check[1]); k <= check[2]; k++) {
-                            constraint.push(k)
-                        }
-                        return constraint
-                    }
-                    // check stepped cost
-                    check = cost.match("^[0-9]/")
-                    if (null !== check) {
-                        return cost.split('/')
-                    }
-
-                }(power['Coût'])
-            }
-        }
 
         var oReq = new XMLHttpRequest()
         oReq.addEventListener("load", function () {
@@ -165,9 +199,9 @@ SwTable.prototype.load = function () {
                 }
             }
 
-            enrichEdge(self.data['Atouts'])
-            enrichHindrance(self.data['Handicaps'])
-            enrichPower(self.data['Pouvoirs'])
+            self.enrichEdge()
+            self.enrichPower()
+            self.addingAdvance()
 
             fulfill()
 

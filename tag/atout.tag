@@ -16,8 +16,9 @@
             </select>
         </div>
         <virtual each="{ atout in model.current.atout }">
-            <div class="pure-u-1-{ info == '1' ? '2' : '1' } {model.current.isValidated(atout) ? '' : 'failed-constraint'}">
-                <label title="Prérequis : {atout['Prérequis']} &#013;Détail : {atout['Effets']}">
+            <div class="pure-u-1-{ atout.info ? '2' : '1' }">
+                <label title="Prérequis : {atout['Prérequis']} &#013;Détail : {atout['Effets']}" 
+                       class="{model.current.isValidated(atout) ? '' : 'failed-constraint'}">
                     <input type='radio' name="selectedEdge"
                            checked="{checkedAtout == this}" onclick="{
                                        onCheckedEdge
@@ -25,8 +26,8 @@
                     {atout['Atout']}
                 </label>
             </div>
-            <div class="pure-u-1-2" if="{ info == '1' }">
-                <input name="atoutInfo" value="{detail}"
+            <div class="pure-u-1-2" if="{ atout.info }">
+                <input name="atoutInfo" value="{atout.detail}"
                        class="pure-input-1" onchange="{
                                    parent.onUpdateDetail
                                }"/>
