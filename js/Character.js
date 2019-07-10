@@ -75,9 +75,28 @@ Character.prototype = {
     },
     getAtoutCreation: function () {
         var tab = []
-        var nbHandi = Math.ceil(this.getHindrancePoint() / 2)
-        for (var k = 0; k < (nbHandi + 1); k++) {
-            tab.push(this.atout[k])
+        var hp = this.getHindrancePoint()
+
+        var sum = 0
+        for (var k in this.atout) {
+            sum += this.atout[k].advanceCost
+            if (sum <= hp) {
+                tab.push(this.atout[k])
+            }
+        }
+
+        return tab
+    },
+    getProgression: function () {
+        var tab = []
+        var hp = this.getHindrancePoint()
+
+        var sum = 0
+        for (var k in this.atout) {
+            sum += this.atout[k].advanceCost
+            if (sum > hp) {
+                tab.push(this.atout[k])
+            }
         }
 
         return tab
