@@ -45,7 +45,7 @@
                            checked="{checkedAtout == this}" onclick="{
                                        onCheckedEdge
                                    }"/>
-                    {atout['Atout']}
+                    {model.current.getXpForEdge(atout)} - {atout['Atout']}
                 </label>
             </div>
             <div class="pure-u-1-2" if="{ atout.info }">

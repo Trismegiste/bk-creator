@@ -7,6 +7,7 @@ var CharacterBuilder = function (attributes, superpowers) {
     this.typeList = {
         vampire: {title: 'Vampire', build: function (c) {
                 c.type = 'vampire'
+                c.wildCard = true
                 for (var k in attributes) {
                     c.attribute[attributes[k]['Abbrev']] = 4
                     c.vampiricPower = [
@@ -19,6 +20,7 @@ var CharacterBuilder = function (attributes, superpowers) {
         },
         humain: {title: 'Humain', build: function (c) {
                 c.type = 'humain'
+                c.wildCard = false
                 for (var k in attributes) {
                     c.attribute[attributes[k]['Abbrev']] = 6
                 }

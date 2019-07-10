@@ -60,8 +60,9 @@ Character.prototype = {
         return sum;
     },
     getXP: function () {
-        var nb = this.atout.length - this.getHindrancePoint() / 2 - 1
-
+        return this.getXpForAdvance(this.getProgression().length)
+    },
+    getXpForAdvance: function (nb) {
         return 5 * (nb + (nb > 16 ? nb - 16 : 0))
     },
     getHindrancePoint: function () {
@@ -120,6 +121,16 @@ Character.prototype = {
 
         return sum
     },
+    getXpForEdge: function (atout) {
+        var lst = this.getProgression()
+
+        var idx = lst.indexOf(atout)
+        if (-1 !== idx) {
+            return this.getXpForAdvance(idx + 1)
+        } else {
+            throw new Error('Edge not found')
+        }
+    },
     isValidated: function (atout) {
         var cumul = true
         for (var k in atout.constraint) {
@@ -127,7 +138,7 @@ Character.prototype = {
             var clause = false
             switch (constraint.type) {
                 case 'rank':
-                    clause = this.getXpOfRank(constraint.rank) <= this.getXP()
+                    clause = this.getXpOfRank(constraint.rank) <= this.getXpForEdge(atout)
                     break
                 case 'attribute':
                     clause = this.attribute[constraint.attr.toLocaleUpperCase()] >= constraint.dice
