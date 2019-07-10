@@ -2,7 +2,7 @@
     <header class="{ blockStyle }">
         <form class="pure-form pure-g">
             <legend class="pure-u-1">Template</legend>
-            <div class="pure-u-1">
+            <div class="pure-u-1-2">
                 <select name="type" value="{ model.current.type }" class="pure-input-1" onchange="{
                             onChange
                         }">
@@ -10,13 +10,18 @@
                     <option each="{key, type in builder.getTemplate()}" value="{key}">{type.title}</option>
                 </select>
             </div>
-            <div class="pure-u-1">
+            <div class="pure-u-1-2 centered">
                 <label>
                     <input type="checkbox" name="wildcard" checked="{ model.current.wildCard }"  onclick="{
                                 onWildCard
                             }"/>
                     Wild Card
                 </label>
+            </div>
+            <div class="pure-u-1">
+                <textarea class="pure-input-1" rows="3" name="info" onchange="{
+                            onUpdateInfo
+                        }">{ model.current.detailedNote }</textarea>
             </div>
         </form>
     </header>
@@ -29,7 +34,6 @@
     <!-- atouts -->
     <atout class="{ blockStyle }"></atout>
     <vampiric-power  class="{ blockStyle }" if="{ model.current.type == 'vampire' }"></vampiric-power>
-    <add-info class="{ blockStyle }"></add-info>
     <div class="pure-u-1 button-spacing" if="{ SwCharman.cloudFolder.id }">
         <a class="pure-button button-success" onclick="{
                     storeToRepository
@@ -52,6 +56,10 @@
             self.model.current.wildCard = self.wildcard.checked
         }
 
+        this.onUpdateInfo = function () {
+            self.model.current.detailedNote = self.info.value
+        }
+
         // store the current char into the Repository
         this.storeToRepository = function () {
             if (self.model.current.name != '') {
@@ -61,7 +69,7 @@
             }
         }
 
-        // delete the current char into the Repository
+        // delete the current char from the Repository
         this.deleteFromRepository = function () {
             if (self.model.current.name != '') {
                 var temp = self.model.clone(self.model.current);

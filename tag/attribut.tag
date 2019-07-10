@@ -9,9 +9,8 @@
                 <select name="{attr}" class="pure-input-1" data-is="dice-option" nozero="true" value="{ model.current.attribute[attr] }"></select>
             </div>
         </virtual>
-        <div class="pure-u-1-4"><label>Pts.</label></div>
-        <div class="pure-u-1-4"><label class="centered">{ model.current.getAttributePoint() }</label></div>
     </form>
+    <sum-footer value="{ model.current.getAttributePoint() }"></sum-footer>
     <script>
         this.model = SwCharman.model
         this.attributList = []
