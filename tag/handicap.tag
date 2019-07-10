@@ -27,6 +27,7 @@
             </div>
         </virtual>
     </form>
+    <sum-footer value="{ model.current.getHindrancePoint() }"></sum-footer>
     <script>
         this.model = SwCharman.model
         this.handicapList = SwCharman.table.get('Handicaps')

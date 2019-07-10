@@ -28,10 +28,8 @@
                                 }"></select>
             </div>
         </virtual>
-        <div class="pure-u-1-2"></div>
-        <div class="pure-u-1-4"><label class="centered">Pts.</label></div>
-        <div class="pure-u-1-4"><label class="centered">{ model.current.getCompetencePoint() }</label></div>
     </form>
+    <sum-footer value="{ model.current.getCompetencePoint() }"></sum-footer>
     <script>
         this.model = SwCharman.model
         this.competenceList = SwCharman.table.get('Compétences')
@@ -74,6 +72,10 @@
                 tab[idx]['Compétences'] = e.target.value
             }
         }
+
+        this.model.on('update-attribute', function () {
+            self.update()
+        })
 
     </script>
 </competence>

@@ -127,7 +127,7 @@ Character.prototype = {
         }
 
         return -2
-    }
+    }    
 
 
 };
