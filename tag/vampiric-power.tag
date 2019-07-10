@@ -25,10 +25,8 @@
                 </select>
             </div>
         </virtual>
-        <div class="pure-u-1-2"></div>
-        <div class="pure-u-1-4"><label class="centered">Pts.</label></div>
-        <div class="pure-u-1-4"><label class="centered">{ model.current.getPowerPoint() }</label></div>
     </form>
+    <sum-footer value="{ model.current.getPowerPoint() }"></sum-footer>
     <script>
         this.model = SwCharman.model
         this.pouvoirList = SwCharman.table.get('Pouvoirs')

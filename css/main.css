@@ -104,3 +104,8 @@ content-database div.character {
 .failed-constraint {
     background-color: #ffeeee;
 }
+
+sum-footer {
+    margin-bottom: 1em;
+    display: block;
+}
