@@ -33,7 +33,10 @@
                                }"/>
             </div>
         </virtual>
-        <div class="pure-u-1">yolo</div>
+        <div class="pure-u-1-4 centered">PC</div>
+        <div class="pure-u-1-4 centered">{ model.current.getCreationPoint() }</div>
+        <div class="pure-u-1-4 centered">/</div>
+        <div class="pure-u-1-4 centered">{ model.current.getHindrancePoint() }</div>
         <virtual each="{ atout in getProgression() }">
             <div class="pure-u-1-{ atout.info ? '2' : '1' }">
                 <label title="Prérequis : {atout['Prérequis']} &#013;Détail : {atout['Effets']}" 

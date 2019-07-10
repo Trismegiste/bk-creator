@@ -87,6 +87,16 @@ Character.prototype = {
 
         return tab
     },
+    getCreationPoint: function () {
+        var sum = 0
+        var lst = this.getAtoutCreation()
+
+        for (var k in lst) {
+            sum += lst[k].advanceCost
+        }
+
+        return sum
+    },
     getProgression: function () {
         var tab = []
         var hp = this.getHindrancePoint()
