@@ -30,18 +30,18 @@ AbstractRendering.prototype.getCompetencesHeader = function () {
     }
 }
 
-AbstractRendering.prototype.getCompetences = function (group) {
+AbstractRendering.prototype.getCompetences = function () {
     var listing = this.getCompetencesHeader()
 
-    for (var k in this.character.competence[group]) {
-        var comp = this.character.competence[group][k]
-        listing.table.body.push([comp.title, this.getDiceText(comp.value)])
+    for (var k in this.character.competence) {
+        var comp = this.character.competence[k]
+        listing.table.body.push([comp['Compétences'], this.getDiceText(comp.value)])
     }
 
     return listing
 }
 
-AbstractRendering.prototype.getAtoutCreation = function (group) {
+AbstractRendering.prototype.getAtoutCreation = function () {
     var listing = {
         table: {
             headerRows: 1,
@@ -51,11 +51,11 @@ AbstractRendering.prototype.getAtoutCreation = function (group) {
         layout: 'lightHorizontalLines',
         margin: [0, 5]
     }
-    var atoutCreation = this.character.getAtoutCreation(group);
-    for (var k = 0; k < atoutCreation.length; k++) {
+    var atoutCreation = this.character.getAtoutCreation();
+    for (var k in atoutCreation) {
         console.log(k)
         var atout = atoutCreation[k]
-        var titre = atout.titre
+        var titre = atout['Atout']
         if (atout.hasOwnProperty('detail')) {
             titre += ' ' + atout.detail
         }
@@ -65,7 +65,7 @@ AbstractRendering.prototype.getAtoutCreation = function (group) {
     return listing
 }
 
-AbstractRendering.prototype.getAtout = function (group) {
+AbstractRendering.prototype.getAtout = function () {
     var listing = {
         table: {
             headerRows: 1,
@@ -76,22 +76,22 @@ AbstractRendering.prototype.getAtout = function (group) {
         margin: [0, 5]
     }
 
-    var offset = this.character.getAtoutCreation(group).length;
-    for (var k = offset; k < this.character.atout[group].length; k++) {
-        var atout = this.character.atout[group][k]
-        var titre = atout.titre
+    var progression = this.character.getProgression();
+    for (var k in progression) {
+        console.log(k)
+        var atout = progression[k]
+        var titre = atout['Atout']
         if (atout.hasOwnProperty('detail')) {
             titre += ' ' + atout.detail
         }
-        var nb = k - offset + 1;
-        var cost = 5 * (nb + (nb > 16 ? nb - 16 : 0))
+        var cost = this.character.getXpForEdge(atout)
         listing.table.body.push([cost.toString(), titre])
     }
 
     return listing
 }
 
-AbstractRendering.prototype.getHandicap = function (group) {
+AbstractRendering.prototype.getHandicap = function () {
     var listing = {
         table: {
             headerRows: 1,
@@ -102,9 +102,9 @@ AbstractRendering.prototype.getHandicap = function (group) {
         margin: [0, 5]
     }
 
-    for (var k in this.character.handicap[group]) {
-        var item = this.character.handicap[group][k]
-        listing.table.body.push([item.titre, item.value.substr(0, 3)])
+    for (var k in this.character.handicap) {
+        var item = this.character.handicap[k]
+        listing.table.body.push([item['Handicap'], item.value.substr(0, 3)])
     }
 
     return listing
@@ -148,37 +148,15 @@ AbstractRendering.prototype.getPuce = function (nb) {
     }
 }
 
-AbstractRendering.prototype.getMonoKa = function () {
-    var essence = this.character.uniqueKa
-    var tablePuce = this.getPuce(essence.puce)
-    tablePuce.margin = [6, 6, 0, 0]
-
-    return {
-        table: {
-            body: [
-                [
-                    {
-                        image: SwCharman.assetManager.get(essence.ka),
-                        fit: [30, 30]
-                    },
-                    {text: this.getDiceText(essence.initiation), alignment: 'left', style: 'verticalAlign'},
-                    tablePuce
-                ]
-            ]
-        },
-        layout: 'noBorders'
-    }
-}
-
-AbstractRendering.prototype.getAtoutDescription = function (group) {
+AbstractRendering.prototype.getAtoutDescription = function () {
     var listing = []
     // remove duplicate
     var reducedAtoutList = []
     var alreadyStacked = []
-    for (var k in this.character.atout[group]) {
-        var atout = this.character.atout[group][k]
-        if (-1 === alreadyStacked.indexOf(atout.titre)) {
-            alreadyStacked.push(atout.titre)
+    for (var k in this.character.atout) {
+        var atout = this.character.atout[k]
+        if (-1 === alreadyStacked.indexOf(atout['Atout'])) {
+            alreadyStacked.push(atout['Atout'])
             reducedAtoutList.push(atout)
         }
     }
@@ -190,25 +168,25 @@ AbstractRendering.prototype.getAtoutDescription = function (group) {
     listing.push('ATOUTS ')
     for (var k in reducedAtoutList) {
         var atout = reducedAtoutList[k]
-        listing.push({text: atout.titre + ' ', bold: true})
-        if (atout.hasOwnProperty('prerequis')) {
-            listing.push('(' + atout.prerequis + ') ')
+        listing.push({text: atout['Atout'] + ' ', bold: true})
+        if (atout.hasOwnProperty('Prérequis')) {
+            listing.push('(' + atout['Prérequis'] + ') ')
         }
-        listing.push(atout.descr + ' / ')
+        listing.push(atout['Effets'] + ' / ')
     }
 
     return {text: listing, fontSize: 8}
 }
 
-AbstractRendering.prototype.getHandicapDescription = function (group) {
+AbstractRendering.prototype.getHandicapDescription = function () {
     var listing = []
     // remove duplicate
     var reducedList = []
     var alreadyStacked = []
-    for (var k in this.character.handicap[group]) {
-        var handi = this.character.handicap[group][k]
-        if (-1 === alreadyStacked.indexOf(handi.titre)) {
-            alreadyStacked.push(handi.titre)
+    for (var k in this.character.handicap) {
+        var handi = this.character.handicap[k]
+        if (-1 === alreadyStacked.indexOf(handi['Handicap'])) {
+            alreadyStacked.push(handi['Handicap'])
             reducedList.push(handi)
         }
     }
@@ -220,8 +198,8 @@ AbstractRendering.prototype.getHandicapDescription = function (group) {
     listing.push('HANDICAP ')
     for (var k in reducedList) {
         var handi = reducedList[k]
-        listing.push({text: handi.titre + ' ', bold: true})
-        listing.push(handi.descr + ' / ')
+        listing.push({text: handi['Handicap'] + ' ', bold: true})
+        listing.push(handi['Effets'] + ' / ')
     }
 
     return {text: listing, fontSize: 8}
@@ -254,19 +232,17 @@ AbstractRendering.prototype.getFightingStat = function () {
         {
             table: {
                 headerRows: 1,
-                widths: ['25%', '25%', '25%', '25%'],
+                widths: ['33%', '34%', '33%'],
                 body: [
                     [
                         'Parade',
                         'Esquive',
-                        'Résistance',
-                        'RM'
+                        'Résistance'
                     ],
                     [
                         this.character.toHit,
                         this.character.toShoot,
-                        this.character.toughness,
-                        this.character.magicToughness
+                        this.character.toughness
                     ]
                 ]
             },

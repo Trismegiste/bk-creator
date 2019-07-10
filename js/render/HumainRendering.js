@@ -18,15 +18,15 @@ HumainRendering.prototype.getDocument = function () {
                         [
                             this.getIdentite(),
                             {},
-                            this.getMonoKa()
+                            {}
                         ],
                         [
                             this.getAttribut(),
-                            [this.getHandicap(0), this.getAtoutCreation(0)],
-                            this.getCompetences(0)
+                            [this.getHandicap(), this.getAtoutCreation()],
+                            this.getCompetences()
                         ],
                         [
-                            this.getAtout(0),
+                            this.getAtout(),
                             {text: ''},
                             {text: ''}
                         ]
@@ -35,8 +35,8 @@ HumainRendering.prototype.getDocument = function () {
                 layout: 'noBorders'
             },
             {text: 'Notes'},
-            this.getHandicapDescription(0),
-            this.getAtoutDescription(0),
+            this.getHandicapDescription(),
+            this.getAtoutDescription(),
             this.getFightingStat()
         ],
         styles: {

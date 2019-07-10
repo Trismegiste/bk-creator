@@ -34,7 +34,7 @@
     <!-- atouts -->
     <atout class="{ blockStyle }"></atout>
     <vampiric-power  class="{ blockStyle }" if="{ model.current.type == 'vampire' }"></vampiric-power>
-    <div class="pure-u-1 button-spacing" if="{ SwCharman.cloudFolder.id }">
+    <div class="pure-u-1 button-spacing" if="{ true || SwCharman.cloudFolder.id }">
         <a class="pure-button button-success" onclick="{
                     storeToRepository
                 }">Store to DB</a>
