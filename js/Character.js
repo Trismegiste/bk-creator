@@ -90,6 +90,45 @@ Character.prototype = {
         }
 
         return sum
+    },
+    isValidated: function (atout) {
+        console.log(atout)
+        var cumul = true
+        for (var k in atout.constraint) {
+            var constraint = atout.constraint[k]
+            var clause = false
+            switch (constraint.type) {
+                case 'rank':
+                    clause = this.getXpOfRank(constraint.rank) <= this.getXP()
+                    break
+                case 'attribute':
+                    clause = this.attribute[constraint.attr.toLocaleUpperCase()] >= constraint.dice
+                    break
+                case 'skill':
+                    clause = false
+                    for (var j in constraint.skill) {
+                        clause = (this.getSkillDice(constraint.skill[j]) >= constraint.dice) || clause
+                    }
+                    break
+                default:
+                    clause = true
+            }
+            cumul = clause && cumul
+        }
+        console.log(cumul)
+        return cumul
+    },
+    getXpOfRank: function (rk) {
+        return {'N': 0, 'A': 20, 'V': 40, 'H': 60, 'L': 80}[rk]
+    },
+    getSkillDice: function (name) {
+        for (var k in this.competence) {
+            if (this.competence[k]['Compétences'] === name) {
+                return this.competence[k].value
+            }
+        }
+
+        return -2
     }
 
 

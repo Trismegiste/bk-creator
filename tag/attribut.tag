@@ -26,6 +26,7 @@
             self.attributList.forEach(function (key) {
                 obj[key] = parseInt(self[key].value)
             })
+            self.model.trigger('update-attribute')
         }
 
         this.model.on('init-attributs', function (val) {

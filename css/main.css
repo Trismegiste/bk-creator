@@ -100,3 +100,7 @@ h2 {
 content-database div.character {
     padding-bottom: 0.6em;
 }
+
+.failed-constraint {
+    background-color: red;
+}

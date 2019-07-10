@@ -16,7 +16,7 @@
             </select>
         </div>
         <virtual each="{ atout in model.current.atout }">
-            <div class="pure-u-1-{ info == '1' ? '2' : '1' }">
+            <div class="pure-u-1-{ info == '1' ? '2' : '1' } {model.current.isValidated(atout) ? '' : 'failed-constraint'}">
                 <label title="Prérequis : {atout['Prérequis']} &#013;Détail : {atout['Effets']}">
                     <input type='radio' name="selectedEdge"
                            checked="{checkedAtout == this}" onclick="{
@@ -123,6 +123,11 @@
         this.model.on('update-hindrance', function () {
             self.update()
         })
+        
+        this.model.on('update-attribute', function () {
+            self.update()
+        })
+
 
     </script>
 </atout>
