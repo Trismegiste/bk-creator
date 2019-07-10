@@ -123,11 +123,13 @@
         this.model.on('update-hindrance', function () {
             self.update()
         })
-        
+
         this.model.on('update-attribute', function () {
             self.update()
         })
 
-
+        this.model.on('update-skill', function () {
+            self.update()
+        })
     </script>
 </atout>

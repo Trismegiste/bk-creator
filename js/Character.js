@@ -92,7 +92,6 @@ Character.prototype = {
         return sum
     },
     isValidated: function (atout) {
-        console.log(atout)
         var cumul = true
         for (var k in atout.constraint) {
             var constraint = atout.constraint[k]
@@ -115,7 +114,6 @@ Character.prototype = {
             }
             cumul = clause && cumul
         }
-        console.log(cumul)
         return cumul
     },
     getXpOfRank: function (rk) {

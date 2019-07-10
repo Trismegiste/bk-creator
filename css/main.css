@@ -102,5 +102,5 @@ content-database div.character {
 }
 
 .failed-constraint {
-    background-color: red;
+    background-color: #ffeeee;
 }

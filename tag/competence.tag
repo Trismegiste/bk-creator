@@ -64,6 +64,7 @@
                     tab[idx].value = parseInt(e.target.value)
                 }
             }
+            self.model.trigger('update-skill')
         }
 
         this.onUpdateTitle = function (e) {
