@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-
+        <div id="log"></div>
         <script>
 
             var oReq = new XMLHttpRequest()
@@ -22,6 +22,29 @@
             oReq.open("GET", "./data/Betty.svg")
             oReq.send()
 
+            loadDataUrlPromise = function (key, url) {
+                return new Promise(function (fulfill, reject) {
+                    var xhr = new XMLHttpRequest()
+                    xhr.responseType = 'blob'
+                    xhr.onload = function (e) {
+                        if (e.target.status === 200) {
+                            var reader = new FileReader()
+                            reader.onloadend = function (e) {
+                                fulfill([key, e.target.result])
+                            }
+                            reader.readAsDataURL(xhr.response)
+                        } else {
+                            reject(e)
+                        }
+                    }
+                    xhr.open('GET', url)
+                    xhr.send()
+                })
+            }
+
+            loadDataUrlPromise('e', './app.jpg').then(function (pair) {
+                document.getElementById('log').textContent = pair[1]
+            })
 
         </script>
     </body>
