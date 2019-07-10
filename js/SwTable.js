@@ -4,6 +4,7 @@
 var SwTable = function (filename) {
     this.filename = filename
     this.data = {'competence': [{title: 'boz'}]}
+    this.categoryLabel = {'Pou': 'Pouvoir', 'Cbt': 'Combat', 'Cmd': 'Commandement', 'Soc': 'Social', 'Leg': 'Légendaire', 'Pro': 'Professionnel', 'Bak': 'Background'}
 }
 
 SwTable.prototype.load = function () {
@@ -72,6 +73,11 @@ SwTable.prototype.load = function () {
                 })
                 // inserting constraints in edge
                 atout.constraint = constraint
+
+                // inserting cost
+                atout.advanceCost = 2
+                // human label
+                atout['Type'] = self.categoryLabel[atout['Type']]
             }
         }
 

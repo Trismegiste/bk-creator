@@ -109,6 +109,15 @@ Character.prototype = {
                         clause = (this.getSkillDice(constraint.skill[j]) >= constraint.dice) || clause
                     }
                     break
+                case 'edge':
+                    clause = false
+                    for (var j in this.atout) {
+                        if (this.atout[j]['Atout'] === constraint.edge) {
+                            clause = true
+                            break
+                        }
+                    }
+                    break
                 default:
                     clause = true
             }
@@ -127,7 +136,7 @@ Character.prototype = {
         }
 
         return -2
-    }    
+    }
 
 
 };
