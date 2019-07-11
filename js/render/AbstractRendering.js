@@ -53,7 +53,6 @@ AbstractRendering.prototype.getAtoutCreation = function () {
     }
     var atoutCreation = this.character.getAtoutCreation();
     for (var k in atoutCreation) {
-        console.log(k)
         var atout = atoutCreation[k]
         var titre = atout['Atout']
         if (atout.hasOwnProperty('detail')) {
@@ -78,7 +77,6 @@ AbstractRendering.prototype.getAtout = function () {
 
     var progression = this.character.getProgression();
     for (var k in progression) {
-        console.log(k)
         var atout = progression[k]
         var titre = atout['Atout']
         if (atout.hasOwnProperty('detail')) {

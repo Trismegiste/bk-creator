@@ -37,6 +37,7 @@ VampireRendering.prototype.getDocument = function () {
             {text: 'Notes'},
             this.getHandicapDescription(),
             this.getAtoutDescription(),
+            this.getPouvoirDescription(),
             this.getFightingStat()
         ],
         styles: {
@@ -69,11 +70,23 @@ VampireRendering.prototype.getPouvoir = function () {
 
     var pouvoir = this.character.vampiricPower
     for (var k in pouvoir) {
-        console.log(k)
         var item = pouvoir[k]
         var titre = item['Pouvoir vampirique']
         listing.table.body.push([titre, item.value])
     }
 
     return listing
+}
+
+VampireRendering.prototype.getPouvoirDescription = function () {
+    var listing = []
+    listing.push('POUVOIRS ')
+    for (var k in this.character.vampiricPower) {
+        var pouvoir = this.character.vampiricPower[k]
+        listing.push({text: pouvoir['Pouvoir vampirique'] + ' ', bold: true})
+        listing.push(pouvoir['Effets'] + ' / ')
+    }
+
+    return {text: listing, fontSize: 8}
+
 }
