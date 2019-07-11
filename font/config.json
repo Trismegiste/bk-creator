@@ -55,12 +55,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "5840fe162df3bcc8e390c58ef4e2acf9",
-      "css": "humain",
-      "code": 59401,
-      "src": "typicons"
-    },
-    {
       "uid": "5d2d07f112b8de19f2c0dbfec3e42c05",
       "css": "spinner",
       "code": 59448,
@@ -119,6 +113,12 @@
       "search": [
         "ankh-kiss"
       ]
+    },
+    {
+      "uid": "d92a3efcdf848fb0abd9410b8d95813e",
+      "css": "humain",
+      "code": 59400,
+      "src": "elusive"
     },
     {
       "uid": "a08b14716d5ab6fb2602b802ff978ff7",
