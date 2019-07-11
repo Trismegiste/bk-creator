@@ -9,7 +9,7 @@
             <div class="pure-u-1 pure-u-md-1-3">
                 <button class="pure-button button-primary pure-input-1" onclick="{
                             onFilePicking
-                        }">Open...</button>
+                        }"><i class="icon-google-drive"></i> Open...</button>
             </div>
             <div class="pure-u-1-2 pure-u-md-1-6"><label>Nom</label></div>
             <div class="pure-u-1-2 pure-u-md-1-6"><input class="pure-input-1" type="text"

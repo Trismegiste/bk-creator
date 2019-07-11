@@ -37,10 +37,10 @@
     <div class="pure-u-1 button-spacing" if="{ SwCharman.cloudFolder.id }">
         <a class="pure-button button-success" onclick="{
                     storeToRepository
-                }">Store to DB</a>
+                }"><i class="icon-upload-cloud"></i> Store to DB</a>
         <a class="pure-button button-error" onclick="{
                     deleteFromRepository
-                }">Delete from DB</a>
+                }"><i class="icon-trash-empty"></i> Delete from DB</a>
     </div>
     <script>
         this.blockStyle = "webcomponent pure-u-1 pure-u-md-1-2 pure-u-xl-1-3"

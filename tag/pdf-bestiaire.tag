@@ -3,7 +3,7 @@
                 onGenerate
             }">
         <button class="pure-button pure-button-primary">
-            Generate
+            <i class="icon-file-pdf"></i> Generate
         </button>
     </form>
     <div id="log"></div>
