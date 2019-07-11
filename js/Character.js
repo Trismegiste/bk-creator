@@ -13,7 +13,7 @@ var Character = function () {
     this.target = '';
     this.shaken = false;
     this.toHit = 2;
-    this.toShoot = 4;
+    this.toShoot = 0;
     // detail
     this.type = 'virtual';
     this.attribute = {}

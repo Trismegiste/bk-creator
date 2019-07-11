@@ -31,7 +31,7 @@
             </div>
             <div class="pure-u-1-4"><label>Parade</label></div>
             <div class="pure-u-1-4"><input type="number" value="{model.current.toHit}" name="toHit" class="pure-input-1"/></div>
-            <div class="pure-u-1-4"><label>Esquive</label></div>
+            <div class="pure-u-1-4"><label>Distance</label></div>
             <div class="pure-u-1-4"><input type="number" value="{model.current.toShoot}" name="toShoot" class="pure-input-1"/></div>
             <div class="pure-u-1-4"><label>Jeton</label></div>
             <div class="pure-u-1-4">
