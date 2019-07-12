@@ -7,6 +7,8 @@
     </head>
     <body>
         <div id="log"></div>
+        <script src="./js/FileSaver.min.js"></script>
+
         <script>
 
             var oReq = new XMLHttpRequest()
@@ -15,36 +17,15 @@
                 var handi = doc.getElementById('bk-Handicaps')
 
                 console.log(handi.children[0].textContent)
+                console.log(handi.children.length)
                 handi.children[0].textContent = 'Yolo'
-                new XMLSerializer()
+                var s = new XMLSerializer()
+                var blob = new File([s.serializeToString(doc)], 'fdp.svg', {type: "image/svg+xml;charset=utf-8"})
+                saveAs(blob)
             })
 
             oReq.open("GET", "./data/Betty.svg")
             oReq.send()
-
-            loadDataUrlPromise = function (key, url) {
-                return new Promise(function (fulfill, reject) {
-                    var xhr = new XMLHttpRequest()
-                    xhr.responseType = 'blob'
-                    xhr.onload = function (e) {
-                        if (e.target.status === 200) {
-                            var reader = new FileReader()
-                            reader.onloadend = function (e) {
-                                fulfill([key, e.target.result])
-                            }
-                            reader.readAsDataURL(xhr.response)
-                        } else {
-                            reject(e)
-                        }
-                    }
-                    xhr.open('GET', url)
-                    xhr.send()
-                })
-            }
-
-            loadDataUrlPromise('e', './app.jpg').then(function (pair) {
-                document.getElementById('log').textContent = pair[1]
-            })
 
         </script>
     </body>
