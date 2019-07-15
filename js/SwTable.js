@@ -119,7 +119,7 @@ SwTable.prototype.addingAdvance = function () {
             info: true
         },
         {
-            Atout: '1 Comp < Attribut +1TDD',
+            Atout: '1 Comp < Attribut +1TDD (à la Création)',
             'Type': 'Progression',
             'Prérequis': 'N',
             advanceCost: 1,
