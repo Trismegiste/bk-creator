@@ -23,6 +23,7 @@ var Character = function () {
     this.detailedNote = ''
     this.wildCard = false
     this.vampiricPower = []
+    this.freeformPower = []
     this.deltaPC = 0
 };
 
@@ -177,6 +178,15 @@ Character.prototype = {
         }
 
         return -2
+    },
+    getFreeformPowerCost: function () {
+        var sum = 0
+        var tab = this.freeformPower
+        for (var h in tab) {
+            sum += parseInt(tab[h].cost)
+        }
+
+        return sum
     }
 
 

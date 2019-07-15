@@ -17,6 +17,7 @@ var CharacterBuilder = function (attributes, superpowers) {
                     self.findPowerByName('Régénération')
                 ]
                 c.deltaPC = 0
+                c.freeformPower = []
             }
         },
         humain: {title: 'Humain', build: function (c) {
@@ -26,7 +27,17 @@ var CharacterBuilder = function (attributes, superpowers) {
                     c.attribute[attributes[k]['Abbrev']] = 6
                 }
                 c.vampiricPower = []
+                c.freeformPower = []
                 c.deltaPC = 2
+            }
+        },
+        monstre: {title: 'Monstre', build: function (c) {
+                c.type = 'monstre'
+                c.wildCard = false
+                for (var k in attributes) {
+                    c.attribute[attributes[k]['Abbrev']] = 6
+                }
+                c.vampiricPower = []
             }
         }
     }

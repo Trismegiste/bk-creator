@@ -28,12 +28,13 @@
     <!-- attributes -->
     <attribut class="{ blockStyle }"></attribut>
     <!-- handicaps / chutes -->
-    <handicap class="{ blockStyle }"></handicap>
+    <handicap class="{ blockStyle }" if="{ model.current.type != 'monstre' }"></handicap>
     <!-- comp -->
     <competence class="{ blockStyle }"></competence>
     <!-- atouts -->
     <atout class="{ blockStyle }"></atout>
     <vampiric-power  class="{ blockStyle }" if="{ model.current.type == 'vampire' }"></vampiric-power>
+    <monster-power  class="{ blockStyle }" if="{ model.current.type == 'monstre' }"></monster-power>
     <div class="pure-u-1 button-spacing" if="{ SwCharman.cloudFolder.id }">
         <a class="pure-button button-success" onclick="{
                     storeToRepository
