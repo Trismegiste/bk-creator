@@ -16,7 +16,7 @@ SwTable.prototype.enrichEdge = function () {
         var constraint = []
         atout['Prérequis'].split(', ').forEach(function (val) {
             // check for rank
-            var check = val.match("^(N|A|V|H|L)$")
+            var check = val.match(/^(N|A|V|H|L)$/u)
             if (check !== null) {
                 constraint.push({
                     type: "rank",
@@ -26,7 +26,7 @@ SwTable.prototype.enrichEdge = function () {
             }
 
             // check for attribute
-            var checkAttr = val.match("^(Âme|Agi|Vig|For|Int) d(4|6|8|10|12)$")
+            var checkAttr = val.match(/^(Âme|Agi|Vig|For|Int) d(4|6|8|10|12)$/u)
             if (null !== checkAttr) {
                 constraint.push({
                     type: "attribute",
@@ -37,7 +37,7 @@ SwTable.prototype.enrichEdge = function () {
             }
 
             // check for one skill
-            var checkSkill = val.match("^([a-zA-Zé]+) d(4|6|8|10|12)$")
+            var checkSkill = val.match(/^([\S]+) d(4|6|8|10|12)$/u)
             if (null !== checkSkill) {
                 constraint.push({
                     type: "skill",
@@ -48,7 +48,7 @@ SwTable.prototype.enrichEdge = function () {
             }
 
             // check for one skill or one another skill
-            var checkDoubleSkill = val.match("^([a-zA-Z]+) ou ([a-zA-Z]+) d(4|6|8|10|12)$")
+            var checkDoubleSkill = val.match(/^([\S]+) ou ([\S]+) d(4|6|8|10|12)$/u)
             if (null !== checkDoubleSkill) {
                 constraint.push({
                     type: "skill",
