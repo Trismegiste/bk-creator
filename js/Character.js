@@ -133,14 +133,18 @@ Character.prototype = {
             throw new Error('Edge not found')
         }
     },
-    isValidated: function (atout) {
+    isValidated: function (atout, creation) {
         var cumul = true
         for (var k in atout.constraint) {
             var constraint = atout.constraint[k]
             var clause = false
             switch (constraint.type) {
                 case 'rank':
-                    clause = this.getXpOfRank(constraint.rank) <= this.getXpForEdge(atout)
+                    if (creation) {
+                        clause = constraint.rank === 'N'
+                    } else {
+                        clause = this.getXpOfRank(constraint.rank) <= this.getXpForEdge(atout)
+                    }
                     break
                 case 'attribute':
                     clause = this.attribute[constraint.attr.toLocaleUpperCase()] >= constraint.dice
