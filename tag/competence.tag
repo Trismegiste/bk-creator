@@ -46,6 +46,7 @@
                     e.target.value = 0;
                 }
             }
+            self.model.trigger('update-skill')
         }
 
         this.onUpdateValue = function (e) {
