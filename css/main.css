@@ -109,3 +109,7 @@ sum-footer {
     margin-bottom: 1em;
     display: block;
 }
+
+input[type="radio"]  {
+    vertical-align: middle;
+}
