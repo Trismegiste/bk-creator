@@ -68,7 +68,7 @@
                         onDelete
                     }"><i class="icon-trash-empty"></i></button>
         </div>
-        <div class="pure-u-1-3"><label class="centered">XP { model.current.getXP(group) }</label></div>
+        <div class="pure-u-1-3"><label class="centered">XP { model.current.getXP() }</label></div>
     </form>
     <style>
         atout button {
