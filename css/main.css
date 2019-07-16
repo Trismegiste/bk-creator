@@ -99,6 +99,11 @@ h2 {
 
 content-database div.character {
     padding-bottom: 0.6em;
+    font-size: 120%;
+}
+
+content-database div.character a {
+    margin-left: 0.2em;
 }
 
 .failed-constraint {
