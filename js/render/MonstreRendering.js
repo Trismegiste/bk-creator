@@ -35,9 +35,7 @@ MonstreRendering.prototype.getDocument = function () {
                 layout: 'noBorders'
             },
             {text: 'Notes'},
-            this.getHandicapDescription(),
             this.getAtoutDescription(),
-            this.getPouvoirDescription(),
             this.getFightingStat()
         ],
         styles: {
@@ -68,25 +66,11 @@ MonstreRendering.prototype.getPouvoir = function () {
         margin: [0, 5]
     }
 
-    var pouvoir = this.character.vampiricPower
+    var pouvoir = this.character.freeformPower
     for (var k in pouvoir) {
         var item = pouvoir[k]
-        var titre = item['Pouvoir vampirique']
-        listing.table.body.push([titre, item.value])
+        listing.table.body.push([item.title, item.cost])
     }
 
     return listing
-}
-
-MonstreRendering.prototype.getPouvoirDescription = function () {
-    var listing = []
-    listing.push('POUVOIRS ')
-    for (var k in this.character.vampiricPower) {
-        var pouvoir = this.character.vampiricPower[k]
-        listing.push({text: pouvoir['Pouvoir vampirique'] + ' ', bold: true})
-        listing.push(pouvoir['Effets'] + ' / ')
-    }
-
-    return {text: listing, fontSize: 8}
-
 }
