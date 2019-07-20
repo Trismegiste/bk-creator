@@ -27,7 +27,7 @@ MonstreRendering.prototype.getDocument = function () {
                         ],
                         [
                             this.getPouvoir(),
-                            {},
+                            {text: this.getAtoutDescription().text, colSpan: 2, fontSize: 8},
                             {}
                         ]
                     ]
@@ -35,7 +35,6 @@ MonstreRendering.prototype.getDocument = function () {
                 layout: 'noBorders'
             },
             {text: 'Notes'},
-            this.getAtoutDescription(),
             this.getFightingStat()
         ],
         styles: {
