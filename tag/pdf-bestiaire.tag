@@ -34,8 +34,8 @@
 
                 for (var idx in listing) {
                     var character = listing[idx]
-                    var docDefinition = factory.create(character)
                     try {
+                        var docDefinition = factory.create(character)
                         compil.content.push(docDefinition.getDocument().content)
                     } catch (e) {
                         e.character = character.name
