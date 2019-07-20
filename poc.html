@@ -26,7 +26,7 @@
                 node.value = "display:inline"
 
                 // changing name
-                query = '//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="text" and @id="bk-nom"]/*[namespace-uri()="http://www.w3.org/2000/svg" and name()="tspan"]'
+                query = '//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="text" and @id="bk-nom"]/*[name()="tspan"]'
                 xpathResult = doc.evaluate(query, doc, nsResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE)
                 xpathResult.snapshotItem(0).textContent = "Yolo"
 
