@@ -40,17 +40,26 @@
                     }
                 }
 
+                doc.changeInkscapeTextById = function (id, val) {
+                    if (!Array.isArray(val)) {
+                        val = [val]
+                    }
+                    this.changeMultipleTextContent('//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="text" and @id="'
+                            + id
+                            + '"]/*[name()="tspan"]', val)
+                }
+
                 // showing form filling
                 doc.changeOneValue('//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="g" and @inkscape:label="remplissage" and @inkscape:groupmode="layer"]/@style', "display:inline")
                 // changing name
-                doc.changeOneTextContent('//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="text" and @id="bk-nom"]/*[name()="tspan"]', "Yolo")
+                doc.changeInkscapeTextById('bk-nom', "Yolo")
                 // attributes
-                doc.changeMultipleTextContent('//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="text" and @id="bk-attributs"]/*[name()="tspan"]', [7, 7, 7, 7, 7])
+                doc.changeInkscapeTextById('bk-attributs', [7, 7, 7, 7, 7])
 
                 var skill = []
                 skill[0] = 666
                 skill[24] = 777
-                doc.changeMultipleTextContent('//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="text" and @id="bk-competences"]/*[name()="tspan"]', skill)
+                doc.changeInkscapeTextById('bk-competences', skill)
 
                 var s = new XMLSerializer()
                 var blob = new File([s.serializeToString(doc)], 'fdp.svg', {type: "image/svg+xml;charset=utf-8"})
