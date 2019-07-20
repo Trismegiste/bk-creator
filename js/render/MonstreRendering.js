@@ -34,7 +34,6 @@ MonstreRendering.prototype.getDocument = function () {
                 },
                 layout: 'noBorders'
             },
-            {text: 'Notes'},
             this.getFightingStat()
         ],
         styles: {

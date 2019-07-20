@@ -28,7 +28,7 @@ VampireRendering.prototype.getDocument = function () {
                         [
                             this.getAtout(),
                             this.getPouvoir(),
-                            {text: ''}
+                            {}
                         ]
                     ]
                 },
@@ -54,7 +54,7 @@ VampireRendering.prototype.getIdentite = function () {
     if (this.character.wildCard) {
         title += ' [J]'
     }
-    return {text: title, margin: [0, 0, 0, 6], fontSize: 16, colSpan: 2}
+    return {text: title, margin: [0, 0, 0, 6], fontSize: 16, colSpan: 3}
 }
 
 VampireRendering.prototype.getPouvoir = function () {
