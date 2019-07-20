@@ -14,11 +14,14 @@
             var oReq = new XMLHttpRequest()
             oReq.addEventListener("load", function () {
                 var doc = oReq.responseXML
-                var handi = doc.getElementById('bk-Handicaps')
 
-                console.log(handi.children[0].textContent)
-                console.log(handi.children.length)
-                handi.children[0].textContent = 'Yolo'
+                var nsResolver = doc.createNSResolver(doc.ownerDocument == null ? doc.documentElement : doc.ownerDocument.documentElement)
+                var xpathResult = doc.evaluate('//*[name()="g" and @inkscape:label="fill" and @inkscape:groupmode="layer"]/@style', doc, nsResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE)
+                console.log(xpathResult.snapshotLength)
+                var node = xpathResult.snapshotItem(0)
+                console.log(node)
+                node.value = "display:none"   // display:inline
+
                 var s = new XMLSerializer()
                 var blob = new File([s.serializeToString(doc)], 'fdp.svg', {type: "image/svg+xml;charset=utf-8"})
                 saveAs(blob)
