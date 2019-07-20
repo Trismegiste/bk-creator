@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div id="log"></div>
+        <div id="log">yolo</div>
         <script src="./js/FileSaver.min.js"></script>
 
         <script>
@@ -14,14 +14,22 @@
             var oReq = new XMLHttpRequest()
             oReq.addEventListener("load", function () {
                 var doc = oReq.responseXML
-
                 var nsResolver = doc.createNSResolver(doc.ownerDocument == null ? doc.documentElement : doc.ownerDocument.documentElement)
+
+                // showing form filling
                 var query = '//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="g" and @inkscape:label="remplissage" and @inkscape:groupmode="layer"]/@style'
                 var xpathResult = doc.evaluate(query, doc, nsResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE)
-                console.log(xpathResult.snapshotLength)
+                if (1 !== xpathResult.snapshotLength) {
+                    throw new Error("Missing layer")
+                }
                 var node = xpathResult.snapshotItem(0)
-                console.log(node)
                 node.value = "display:inline"
+
+                // changing name
+                query = '//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="text" and @id="bk-nom"]/*[namespace-uri()="http://www.w3.org/2000/svg" and name()="tspan"]'
+                xpathResult = doc.evaluate(query, doc, nsResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE)
+                xpathResult.snapshotItem(0).textContent = "Yolo"
+
 
                 var s = new XMLSerializer()
                 var blob = new File([s.serializeToString(doc)], 'fdp.svg', {type: "image/svg+xml;charset=utf-8"})
