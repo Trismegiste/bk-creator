@@ -16,18 +16,19 @@
                 var doc = oReq.responseXML
 
                 var nsResolver = doc.createNSResolver(doc.ownerDocument == null ? doc.documentElement : doc.ownerDocument.documentElement)
-                var xpathResult = doc.evaluate('//*[name()="g" and @inkscape:label="fill" and @inkscape:groupmode="layer"]/@style', doc, nsResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE)
+                var query = '//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="g" and @inkscape:label="remplissage" and @inkscape:groupmode="layer"]/@style'
+                var xpathResult = doc.evaluate(query, doc, nsResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE)
                 console.log(xpathResult.snapshotLength)
                 var node = xpathResult.snapshotItem(0)
                 console.log(node)
-                node.value = "display:none"   // display:inline
+                node.value = "display:inline"
 
                 var s = new XMLSerializer()
                 var blob = new File([s.serializeToString(doc)], 'fdp.svg', {type: "image/svg+xml;charset=utf-8"})
                 saveAs(blob)
             })
 
-            oReq.open("GET", "./data/Betty.svg")
+            oReq.open("GET", "./data/template.svg")
             oReq.send()
 
         </script>
