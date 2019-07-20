@@ -44,6 +44,7 @@
                 }
 
                 pdfMake.createPdf(compil).download('bestiaire-listing.pdf')
+                self.errorlog = ''
             } catch (e) {
                 self.errorlog = "Error in " + e.character + " : " + (e.stack || e)
             }
