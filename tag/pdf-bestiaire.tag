@@ -1,5 +1,5 @@
 <pdf-bestiaire>
-    <form class="pure-form" if="{ready}" onsubmit="{
+    <form class="pure-form" onsubmit="{
                 onGenerate
             }">
         <button class="pure-button pure-button-primary">
@@ -9,21 +9,7 @@
     <div id="log"></div>
     <script>
         var self = this
-        self.ready = false
-
-        // init assets
-        for (var idx in SwCharman.model.kaList) {
-            var ka = SwCharman.model.kaList[idx]
-            SwCharman.assetManager.append(ka, './img/' + ka + '.png')
-        }
-        for (var k = 0; k < 2; k++) {
-            SwCharman.assetManager.append('puce-' + k, './img/puce-' + k + '.png')
-        }
-
-        SwCharman.assetManager.load().then(function () {
-            self.ready = true
-        })
-
+     
         this.onGenerate = function () {
             var factory = new RenderingFactory();
             var compil = {
