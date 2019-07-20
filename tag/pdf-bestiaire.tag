@@ -6,10 +6,11 @@
             <i class="icon-file-pdf"></i> Generate
         </button>
     </form>
-    <div id="log"></div>
+    <div>{errorlog}</div>
     <script>
         var self = this
-     
+        this.errorlog = ''
+
         this.onGenerate = function () {
             var factory = new RenderingFactory();
             var compil = {
@@ -44,7 +45,7 @@
 
                 pdfMake.createPdf(compil).download('bestiaire-listing.pdf')
             } catch (e) {
-                document.getElementById('log').innerHTML = "Error in " + e.character + " : " + (e.stack || e)
+                self.errorlog = "Error in " + e.character + " : " + (e.stack || e)
             }
         }
     </script>
