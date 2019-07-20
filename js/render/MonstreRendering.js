@@ -22,13 +22,13 @@ MonstreRendering.prototype.getDocument = function () {
                         ],
                         [
                             this.getAttribut(),
-                            {},
+                            this.getAtout(),
                             this.getCompetences()
                         ],
                         [
-                            this.getAtout(),
                             this.getPouvoir(),
-                            {text: ''}
+                            {},
+                            {}
                         ]
                     ]
                 },
@@ -52,7 +52,7 @@ MonstreRendering.prototype.getIdentite = function () {
     if (this.character.wildCard) {
         title += ' [J]'
     }
-    return {text: title, margin: [0, 0, 0, 6], fontSize: 16, colSpan: 2}
+    return {text: title, margin: [0, 0, 0, 6], fontSize: 16, colSpan: 3}
 }
 
 MonstreRendering.prototype.getPouvoir = function () {
