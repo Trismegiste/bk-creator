@@ -36,8 +36,17 @@
             }
 
             try {
-                for (var idx in SwCharman.model.cloudList) {
-                    var character = SwCharman.model.cloudList[idx]
+                var listing = []
+
+                if (SwCharman.model.cloudList.length > 0) {
+                    listing = SwCharman.model.cloudList
+                } else {
+                    // fallback, we generate the listing with the character list for test if the cloud list is empty
+                    listing = SwCharman.model.characterList
+                }
+
+                for (var idx in listing) {
+                    var character = listing[idx]
                     var docDefinition = factory.create(character)
                     try {
                         compil.content.push(docDefinition.getDocument().content)

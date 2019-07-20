@@ -46,6 +46,8 @@
                             })
                         }
                         self.update()
+                    }, function () {
+                        console.error('No Cloud')
                     })
         }
 
