@@ -50,12 +50,9 @@ VampireSvg.prototype.getDocument = function () {
         // changing name
         doc.changeInkscapeTextById('bk-nom', self.character.name)
         // attributes
-        doc.changeInkscapeTextById('bk-attributs', [7, 7, 7, '', 7])
-
-        var skill = []
-        skill[0] = 666
-        skill[24] = 777
-        doc.changeInkscapeTextById('bk-competences', skill)
+        doc.changeInkscapeTextById('bk-attributs', self.getAttribute())
+        // skill
+        doc.changeInkscapeTextById('bk-competences', self.getSkill())
 
         var s = new XMLSerializer()
         var blob = new File([s.serializeToString(doc)], 'fdp.svg', {type: "image/svg+xml;charset=utf-8"})
@@ -65,4 +62,24 @@ VampireSvg.prototype.getDocument = function () {
     oReq.open("GET", "./data/template.svg")
     oReq.send()
 
+}
+
+VampireSvg.prototype.getAttribute = function () {
+    var attr = this.character.attribute
+
+    return [
+        attr['AGI'],
+        attr['ÂME'],
+        attr['VIG'],
+        attr['INT'],
+        attr['FOR']
+    ]
+}
+
+VampireSvg.prototype.getSkill = function () {
+    var skill = []
+    skill[0] = 666
+    skill[24] = 777
+
+    return skill
 }
