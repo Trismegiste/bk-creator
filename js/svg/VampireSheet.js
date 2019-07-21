@@ -68,3 +68,7 @@ VampireSheet.prototype.setAtoutsCrea = function (val) {
 VampireSheet.prototype.setPouvoirs = function (val) {
     this.changeInkscapeTextById('bk-pouvoirs', val)
 }
+
+VampireSheet.prototype.setProgressions = function (val) {
+    this.changeInkscapeTextById('bk-progressions', val)
+}

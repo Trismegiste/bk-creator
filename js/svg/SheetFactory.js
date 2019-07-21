@@ -20,6 +20,7 @@ SheetFactory.prototype.getDocument = function () {
         doc.setHindrances(self.getOrderedHind())
         doc.setAtoutsCrea(self.getAtoutsCrea())
         doc.setPouvoirs(self.getPouvoirs())
+        doc.setProgressions(self.getProgressions())
 
         var s = new XMLSerializer()
         var blob = new File([s.serializeToString(doc.doc)], 'fdp.svg', {type: "image/svg+xml;charset=utf-8"})
@@ -104,6 +105,22 @@ SheetFactory.prototype.getPouvoirs = function () {
     }
 
     var missing = 9 - res.length
+    for (var k = 0; k < missing; k++) {
+        res.push('')
+    }
+
+    return res
+}
+
+SheetFactory.prototype.getProgressions = function () {
+    var prog = this.character.getProgression()
+    var res = []
+    for (var idx in prog) {
+        var lbl = prog[idx]['Atout']
+        res.push(lbl)
+    }
+
+    var missing = 19 - res.length
     for (var k = 0; k < missing; k++) {
         res.push('')
     }
