@@ -125,6 +125,7 @@ VampireSheet.prototype.fillPouvoirs = function () {
             case 'Nyctalope':
                 break
             case 'Régénération':
+                this.changeInkscapeTextById('bk-regeneration', pou[k].value)
                 break
             default:
                 res.push(label + " (" + pou[k].value + ")")
