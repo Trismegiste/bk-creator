@@ -78,8 +78,26 @@ VampireSvg.prototype.getAttribute = function () {
 
 VampireSvg.prototype.getSkill = function () {
     var skill = []
-    skill[0] = 666
-    skill[24] = 777
+    var listingComp = SwCharman.table.get('Compétences')
+    for (var idx in listingComp) {
+        var comp = listingComp[idx]['Compétences']
+        if (comp === 'Connaissance') {
+            var counter = 0
+            for (var k in this.character.competence) {
+                var tmp = this.character.competence[k]
+                if ((tmp['Compétences'] === 'Connaissance') && (counter < 3)) {
+                    skill.push(tmp.value)
+                    counter++
+                }
+            }
+            for (var k = 0; k < 3 - counter; k++) {
+                skill.push('')
+            }
+        } else {
+            var dice = this.character.getSkillDice(comp)
+            skill.push(dice != -2 ? dice : '')
+        }
+    }
 
     return skill
 }
