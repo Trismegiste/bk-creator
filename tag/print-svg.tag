@@ -5,6 +5,9 @@
     <script>
         this.getSvg = function () {
             // do something
+            var svg = new VampireSvg(SwCharman.model.current)
+
+            svg.getDocument()
         }
     </script>
 </print-svg>
