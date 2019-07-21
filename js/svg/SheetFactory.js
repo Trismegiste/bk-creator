@@ -15,8 +15,11 @@ SheetFactory.prototype.getDocument = function () {
         doc.setName(self.character.name)
         // attributes
         doc.setAttributes(self.getAttribute())
-        // skill
+        // skills
         doc.setSkills(self.getSkill())
+        doc.setHindrances(self.getOrderedHind())
+        doc.setAtoutsCrea(self.getAtoutsCrea())
+        doc.setPouvoirs(self.getPouvoirs())
 
         var s = new XMLSerializer()
         var blob = new File([s.serializeToString(doc.doc)], 'fdp.svg', {type: "image/svg+xml;charset=utf-8"})
@@ -64,4 +67,46 @@ SheetFactory.prototype.getSkill = function () {
     }
 
     return skill
+}
+
+SheetFactory.prototype.getOrderedHind = function () {
+    var h = this.character.handicap
+    h.sort(function (a, b) {
+        return ((a.value === 'Majeur') && (b.value === 'Mineur')) ? -1 : 1
+    })
+
+    var res = ['', '', ''] /// Majeur first
+    for (var k in h) {
+        res[k] = h[k]['Handicap']
+    }
+
+    return res
+}
+
+SheetFactory.prototype.getAtoutsCrea = function () {
+    var at = this.character.getAtoutCreation()
+    var res = ['', '']
+    for (var k in at) {
+        res[k] = at[k]['Atout']
+    }
+
+    return res
+}
+
+SheetFactory.prototype.getPouvoirs = function () {
+    var pou = this.character.vampiricPower
+    var res = []
+    for (var k in pou) {
+        var label = pou[k]['Pouvoir vampirique']
+        if (-1 === ['Crocs', 'Régénération', 'Nyctalope'].indexOf(label)) {
+            res.push(label)
+        }
+    }
+
+    var missing = 9 - res.length
+    for (var k = 0; k < missing; k++) {
+        res.push('')
+    }
+
+    return res
 }

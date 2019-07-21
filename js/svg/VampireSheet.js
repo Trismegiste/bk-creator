@@ -57,3 +57,14 @@ VampireSheet.prototype.setSkills = function (val) {
     this.changeInkscapeTextById('bk-competences', val)
 }
 
+VampireSheet.prototype.setHindrances = function (val) {
+    this.changeInkscapeTextById('bk-handicaps', val)
+}
+
+VampireSheet.prototype.setAtoutsCrea = function (val) {
+    this.changeInkscapeTextById('bk-atouts-crea', val)
+}
+
+VampireSheet.prototype.setPouvoirs = function (val) {
+    this.changeInkscapeTextById('bk-pouvoirs', val)
+}
