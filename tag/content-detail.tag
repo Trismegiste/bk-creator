@@ -43,6 +43,9 @@
                     deleteFromRepository
                 }"><i class="icon-trash-empty"></i> Delete from DB</a>
     </div>
+    <div class="pure-u-1 button-spacing">
+        <print-svg></print-svg>
+    </div>
     <script>
         this.blockStyle = "webcomponent pure-u-1 pure-u-md-1-2 pure-u-xl-1-3"
         this.model = SwCharman.model
