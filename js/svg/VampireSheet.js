@@ -3,8 +3,9 @@
  * contins business methods
  */
 
-var VampireSheet = function (svg) {
+var VampireSheet = function (svg, char) {
     this.doc = svg
+    this.character = char
     this.nsResolver = svg.createNSResolver(svg.ownerDocument == null ? svg.documentElement : svg.ownerDocument.documentElement)
 
     this.changeOneValue('//*[namespace-uri()="http://www.w3.org/2000/svg" and name()="g" and @inkscape:label="remplissage" and @inkscape:groupmode="layer"]/@style', "display:inline")
@@ -49,26 +50,123 @@ VampireSheet.prototype.setName = function (val) {
     this.changeInkscapeTextById('bk-nom', val)
 }
 
-VampireSheet.prototype.setAttributes = function (val) {
+VampireSheet.prototype.fillAttributes = function () {
+    var attr = this.character.attribute
+
+    var val = [
+        attr['AGI'],
+        attr['ÂME'],
+        attr['VIG'],
+        attr['INT'],
+        attr['FOR']
+    ]
+
     this.changeInkscapeTextById('bk-attributs', val)
 }
 
-VampireSheet.prototype.setSkills = function (val) {
-    this.changeInkscapeTextById('bk-competences', val)
+VampireSheet.prototype.fillSkills = function () {
+    var skill = []
+    var listingComp = SwCharman.table.get('Compétences')
+    for (var idx in listingComp) {
+        var comp = listingComp[idx]['Compétences']
+        if (comp === 'Connaissance') {
+            var counter = 0
+            for (var k in this.character.competence) {
+                var tmp = this.character.competence[k]
+                if ((tmp['Compétences'] === 'Connaissance') && (counter < 3)) {
+                    skill.push(tmp.value)
+                    counter++
+                }
+            }
+            for (var k = 0; k < 3 - counter; k++) {
+                skill.push('')
+            }
+        } else {
+            var dice = this.character.getSkillDice(comp)
+            skill.push(dice != -2 ? dice : '')
+        }
+    }
+
+    this.changeInkscapeTextById('bk-competences', skill)
 }
 
-VampireSheet.prototype.setHindrances = function (val) {
-    this.changeInkscapeTextById('bk-handicaps', val)
+VampireSheet.prototype.fillHindrances = function () {
+    var h = this.character.handicap
+    h.sort(function (a, b) {
+        return ((a.value === 'Majeur') && (b.value === 'Mineur')) ? -1 : 1
+    })
+
+    var res = ['', '', ''] /// Majeur first
+    for (var k in h) {
+        res[k] = h[k]['Handicap']
+    }
+
+    this.changeInkscapeTextById('bk-handicaps', res)
 }
 
-VampireSheet.prototype.setAtoutsCrea = function (val) {
-    this.changeInkscapeTextById('bk-atouts-crea', val)
+VampireSheet.prototype.fillAtoutsCrea = function () {
+    var at = this.character.getAtoutCreation()
+    var res = ['', '']
+    for (var k in at) {
+        res[k] = at[k]['Atout']
+    }
+
+    this.changeInkscapeTextById('bk-atouts-crea', res)
 }
 
-VampireSheet.prototype.setPouvoirs = function (val) {
-    this.changeInkscapeTextById('bk-pouvoirs', val)
+VampireSheet.prototype.fillPouvoirs = function () {
+    var pou = this.character.vampiricPower
+    var res = []
+    for (var k in pou) {
+        var label = pou[k]['Pouvoir vampirique']
+        switch (label) {
+            case 'Crocs':
+                break
+            case 'Nyctalope':
+                break
+            case 'Régénération':
+                break
+            default:
+                res.push(label + " (" + pou[k].value + ")")
+        }
+
+    }
+
+    var missing = 9 - res.length
+    for (var k = 0; k < missing; k++) {
+        res.push('')
+    }
+
+    this.changeInkscapeTextById('bk-pouvoirs', res)
 }
 
-VampireSheet.prototype.setProgressions = function (val) {
-    this.changeInkscapeTextById('bk-progressions', val)
+VampireSheet.prototype.fillProgressions = function () {
+    var prog = this.character.getProgression()
+    var res = []
+    for (var idx in prog) {
+        var lbl = prog[idx]['Atout']
+        res.push(lbl)
+    }
+
+    var missing = 19 - res.length
+    for (var k = 0; k < missing; k++) {
+        res.push('')
+    }
+
+    this.changeInkscapeTextById('bk-progressions', res)
+}
+
+VampireSheet.prototype.getDocument = function () {
+    // changing name
+    this.setName(this.character.name)
+    // attributes
+    this.fillAttributes()
+    // skills
+    this.fillSkills()
+    this.fillHindrances()
+    this.fillAtoutsCrea()
+    this.fillPouvoirs()
+    this.fillProgressions()
+
+    return this.doc
 }
