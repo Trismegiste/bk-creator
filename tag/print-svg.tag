@@ -5,7 +5,7 @@
     <script>
         this.getSvg = function () {
             // do something
-            var svg = new VampireSvg(SwCharman.model.current)
+            var svg = new SheetFactory(SwCharman.model.current)
 
             svg.getDocument()
         }
