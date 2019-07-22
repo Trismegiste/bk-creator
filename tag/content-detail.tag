@@ -43,7 +43,7 @@
                     deleteFromRepository
                 }"><i class="icon-trash-empty"></i> Delete from DB</a>
     </div>
-    <div class="pure-u-1 button-spacing">
+    <div class="pure-u-1 button-spacing" if="{ model.current.type == 'vampire' }">
         <print-svg></print-svg>
     </div>
     <script>
