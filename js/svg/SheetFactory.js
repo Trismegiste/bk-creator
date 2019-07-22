@@ -11,7 +11,7 @@ SheetFactory.prototype.getDocument = function () {
     oReq.addEventListener("load", function () {
         var doc = new VampireSheet(oReq.responseXML, self.character)
         var s = new XMLSerializer()
-        var blob = new File([s.serializeToString(doc.getDocument())], 'fdp.svg', {type: "image/svg+xml;charset=utf-8"})
+        var blob = new File([s.serializeToString(doc.getDocument())], self.character.name + '.svg', {type: "image/svg+xml;charset=utf-8"})
         saveAs(blob)
     })
 
