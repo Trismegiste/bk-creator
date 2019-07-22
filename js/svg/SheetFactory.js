@@ -15,7 +15,7 @@ SheetFactory.prototype.getDocument = function () {
         saveAs(blob)
     })
 
-    oReq.open("GET", "./data/template.svg")
+    oReq.open("GET", "./data/fdp1.svg")
     oReq.send()
 
 }

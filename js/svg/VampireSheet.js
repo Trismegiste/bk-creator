@@ -155,6 +155,7 @@ VampireSheet.prototype.fillProgressions = function () {
     }
 
     this.changeInkscapeTextById('bk-progressions', res)
+    this.changeInkscapeTextById('bk-experience', this.character.getXP())
 }
 
 VampireSheet.prototype.getDocument = function () {
@@ -168,6 +169,13 @@ VampireSheet.prototype.getDocument = function () {
     this.fillAtoutsCrea()
     this.fillPouvoirs()
     this.fillProgressions()
+    this.fillSecondaire()
 
     return this.doc
+}
+
+VampireSheet.prototype.fillSecondaire = function () {
+    this.changeInkscapeTextById('bk-parade', this.character.toHit)
+    this.changeInkscapeTextById('bk-distance', this.character.toShoot)
+    this.changeInkscapeTextById('bk-resistance', this.character.toughness)
 }
