@@ -5,7 +5,7 @@ var SheetFactory = function (charac) {
     this.character = charac;
 }
 
-SheetFactory.prototype.getDocument = function () {
+SheetFactory.prototype.launchDownload = function () {
     var self = this
     var oReq = new XMLHttpRequest()
     oReq.addEventListener("load", function () {

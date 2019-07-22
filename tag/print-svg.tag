@@ -7,7 +7,7 @@
             // do something
             var svg = new SheetFactory(SwCharman.model.current)
 
-            svg.getDocument()
+            svg.launchDownload()
         }
     </script>
 </print-svg>
